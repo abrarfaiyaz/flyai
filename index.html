@@ -61,16 +61,16 @@
       animation: fadeIn 1.5s ease-in-out;
       position: relative;
       z-index: 1;
-    }
-
-    /* Header Styling */
-    .header {
-      padding: 2rem 0;
-      position: relative;
-      z-index: 1;
       transition: transform 0.5s ease, filter 0.5s ease;
     }
 
+    .container.content-blur {
+      transform: scale(2) translateY(-20%);
+      filter: blur(10px);
+      z-index: 0;
+    }
+
+    /* Header Styling */
     .header img {
       max-height: 9rem;
       transition: transform 0.3s ease;
@@ -78,12 +78,6 @@
 
     .header img:hover {
       transform: scale(1.1);
-    }
-
-    .header.logo-blur {
-      transform: scale(2) translateY(-20%);
-      filter: blur(10px);
-      z-index: 0;
     }
 
     /* Content Styling */
@@ -142,6 +136,44 @@
       transform: scale(1.1);
     }
 
+    /* About Page Content Styling */
+    .about {
+      text-align: left;
+      color: white;
+    }
+
+    .about h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .team {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .member {
+      text-align: center;
+      width: 200px;
+    }
+
+    .member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .member h3 {
+      margin: 0.5rem 0 0.2rem;
+    }
+
+    .member p {
+      margin: 0;
+    }
+
     /* Animation Keyframes */
     @keyframes fadeIn {
       from {
@@ -163,17 +195,44 @@
     function handleButtonClick(button) {
       const overlay = document.querySelector('.overlay');
       const overlayContent = document.querySelector('.overlay-content');
-      const header = document.querySelector('.header');
+      const container = document.querySelector('.container');
 
-      // Blur and enlarge logo
-      header.classList.add('logo-blur');
+      // Blur and enlarge all content
+      container.classList.add('content-blur');
 
       // Show overlay
       overlay.style.opacity = '1';
       overlay.style.pointerEvents = 'auto';
 
-      // Show content on overlay
-      overlayContent.textContent = `You clicked: ${button.textContent}`;
+      // Show content based on the button clicked
+      if (button.textContent === "About") {
+        overlayContent.innerHTML = `
+          <div class="about">
+            <h1>About</h1>
+            <p>We are a team dedicated to delivering enterprise AI solutions.</p>
+            <div class="team">
+              <div class="member">
+                <img src="person1.jpg" alt="Person 1">
+                <h3>Jane Doe</h3>
+                <p>CEO</p>
+              </div>
+              <div class="member">
+                <img src="person2.jpg" alt="Person 2">
+                <h3>John Smith</h3>
+                <p>CTO</p>
+              </div>
+              <div class="member">
+                <img src="person3.jpg" alt="Person 3">
+                <h3>Alice Brown</h3>
+                <p>Lead Developer</p>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        overlayContent.textContent = `You clicked: ${button.textContent}`;
+      }
+
       overlayContent.style.opacity = '1';
     }
 
@@ -192,32 +251,19 @@
   </div>
   <div class="container">
     <header class="header">
-      <!-- Logo -->
-      <img 
-        src="fulllogo_transparent_nobuffer.png"
-        alt="FLY AI's logo" 
-      />
+      <img src="fulllogo_transparent_nobuffer.png" alt="FLY AI's logo" />
     </header>
 
     <main class="content">
-      <!-- Titles -->
       <h2>ENTERPRISE AI</h2>
       <p>Empowering Intelligent Growth</p>
 
-      <!-- Social Links -->
       <div class="social-links">
-        <a href="https://www.facebook.com" target="_blank">
-          <i class="fab fa-facebook-square"></i>
-        </a>
-        <a href="https://www.instagram.com" target="_blank">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://www.twitter.com" target="_blank">
-          <i class="fab fa-twitter"></i>
-        </a>
+        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-square"></i></a>
+        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
       </div>
 
-      <!-- Buttons -->
       <div class="buttons">
         <a href="#" onclick="handleButtonClick(this)">About</a>
         <a href="#" onclick="handleButtonClick(this)">Services</a>

@@ -4,7 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FLY AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+
         @keyframes rotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -12,8 +23,9 @@
 
         .rotating-svg {
             animation: rotate 5s linear infinite;
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
         }
 
         @keyframes typewriter {
@@ -27,12 +39,13 @@
 
         .typewriter {
             font-family: "Courier New", Courier, monospace;
-            font-size: 24px;
+            font-size: 28px;
             overflow: hidden;
             border-right: 3px solid black;
             white-space: nowrap;
             margin: 0 auto;
             letter-spacing: 2px;
+            color: #333;
             animation: 
                 typewriter 4s steps(30, end), 
                 blink 0.75s step-end infinite;
@@ -40,7 +53,7 @@
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin-top: 50px;">
+    <div style="margin-top: 50px;">
         <div>
             <img src="35f0d4e4-c0ab-476d-a746-dc765ca39ffb.svg" alt="Dynamic SVG" class="rotating-svg">
         </div>

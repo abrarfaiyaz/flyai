@@ -95,7 +95,10 @@
       text-decoration: none;
       border-radius: 2rem;
       font-weight: bold;
+      transform: translateX(-100%);
+      opacity: 0;
       transition: background-color 0.3s ease, transform 0.3s ease;
+      animation: buttonFlyIn 1s ease-out forwards;
     }
 
     .buttons a:hover {
@@ -103,7 +106,7 @@
       transform: scale(1.1);
     }
 
-    /* Keyframe Animations */
+    /* Animation Keyframes */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -113,12 +116,10 @@
       }
     }
 
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-      }
+    @keyframes buttonFlyIn {
       to {
-        opacity: 0;
+        transform: translateX(0);
+        opacity: 1;
       }
     }
   </style>
@@ -141,6 +142,14 @@
         }, 1000);
       }, 500);
     }
+
+    // Sequential Button Fly-in Animation
+    document.addEventListener("DOMContentLoaded", () => {
+      const buttons = document.querySelectorAll(".buttons a");
+      buttons.forEach((button, index) => {
+        button.style.animationDelay = `${index * 0.5}s`;
+      });
+    });
   </script>
 </head>
 <body>

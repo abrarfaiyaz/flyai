@@ -17,33 +17,57 @@
     body {
       margin: 0;
       font-family: Lato, sans-serif;
-      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       background: url('back.svg') no-repeat center center fixed;
       background-size: cover;
-      color: white;
+      color: #545455;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
     }
 
-    /* Page Wrapper */
-    .page {
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    /* Dark Transparent Layer */
+    .overlay {
       position: absolute;
       top: 0;
       left: 0;
-      transition: transform 0.8s ease-in-out;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease-in-out;
+      z-index: 2;
     }
 
-    /* Index Page */
-    #index-page {
+    /* Content Displayed on Overlay */
+    .overlay-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      text-align: center;
+      font-size: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    /* Main Container Styling */
+    .container {
+      animation: fadeIn 1.5s ease-in-out;
+      position: relative;
       z-index: 1;
+      transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s;
     }
 
-    /* About Page */
-    #about-page {
-      transform: translateX(100%);
+    .container.content-blur {
+      transform: scale(2);
+      filter: blur(10px);
+      opacity: 0.5;
       z-index: 0;
     }
 
@@ -73,7 +97,26 @@
       margin: 1rem 0;
     }
 
+    /* Social Links Styling */
+    .social-links a {
+      display: inline-block;
+      margin: 0 0.5rem;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+      font-size: 2rem;
+      color: #545455;
+    }
+
+    .social-links a:hover {
+      color: #0073e6;
+      transform: scale(1.2);
+    }
+
     /* Buttons Styling */
+    .buttons {
+      margin: 1.5rem 0;
+    }
+
     .buttons a {
       display: inline-block;
       margin: 0 0.5rem;
@@ -83,118 +126,83 @@
       text-decoration: none;
       border-radius: 2rem;
       font-weight: bold;
-      transition: transform 0.3s ease, background-color 0.3s ease;
+      transform: translateY(100%);
+      opacity: 0;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      animation: buttonFlyIn 1s ease-out forwards;
     }
 
     .buttons a:hover {
-      transform: scale(1.1);
       background: #0073e6;
+      transform: scale(1.1);
     }
 
-    /* About Page Content */
-    .about {
-      text-align: center;
-      width: 80%;
-    }
-
-    .team {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .member {
-      text-align: center;
-      width: 150px;
-    }
-
-    .member img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 0.5rem;
-    }
-
-    .member h3 {
-      margin: 0;
-    }
-
-    .member p {
-      font-size: 0.9rem;
-      margin: 0.2rem 0;
-    }
-  </style>
-</head>
-<body>
-  <!-- Index Page -->
-  <div id="index-page" class="page">
-    <div class="container">
-      <header class="header">
-        <img src="fulllogo_transparent_nobuffer.png" alt="FLY AI's logo">
-      </header>
-      <main class="content">
-        <h2>ENTERPRISE AI</h2>
-        <p>Empowering Intelligent Growth</p>
-        <div class="buttons">
-          <a href="#" onclick="showPage('about-page')">About Us</a>
-        </div>
-      </main>
-    </div>
-  </div>
-
-  <!-- About Page -->
-  <div id="about-page" class="page">
-    <div class="about">
-      <h1>About Us</h1>
-      <p>We are a team dedicated to delivering enterprise AI solutions.</p>
-      <div class="team">
-        <div class="member">
-          <img src="person1.jpg" alt="Jane Doe">
-          <h3>Jane Doe</h3>
-          <p>Founder & CEO</p>
-        </div>
-        <div class="member">
-          <img src="person2.jpg" alt="John Smith">
-          <h3>John Smith</h3>
-          <p>CTO</p>
-        </div>
-        <div class="member">
-          <img src="person3.jpg" alt="Alice Brown">
-          <h3>Alice Brown</h3>
-          <p>Lead Developer</p>
-        </div>
-        <div class="member">
-          <img src="person4.jpg" alt="Michael Lee">
-          <h3>Michael Lee</h3>
-          <p>Marketing Head</p>
-        </div>
-        <div class="member">
-          <img src="person5.jpg" alt="Emily White">
-          <h3>Emily White</h3>
-          <p>Product Manager</p>
-        </div>
-      </div>
-      <div class="buttons">
-        <a href="#" onclick="showPage('index-page')">Back to Home</a>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    function showPage(pageId) {
-      const indexPage = document.getElementById('index-page');
-      const aboutPage = document.getElementById('about-page');
-
-      if (pageId === 'about-page') {
-        indexPage.style.transform = 'translateX(-100%)';
-        aboutPage.style.transform = 'translateX(0)';
-      } else if (pageId === 'index-page') {
-        indexPage.style.transform = 'translateX(0)';
-        aboutPage.style.transform = 'translateX(100%)';
+    /* Animation Keyframes */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
       }
     }
+
+    @keyframes buttonFlyIn {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+  <script>
+    function handleButtonClick(button) {
+      const overlay = document.querySelector('.overlay');
+      const overlayContent = document.querySelector('.overlay-content');
+      const container = document.querySelector('.container');
+
+      // Blur and enlarge all content
+      container.classList.add('content-blur');
+
+      // Show overlay
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'auto';
+
+      // Show content based on the button clicked
+      overlayContent.textContent = `You clicked: ${button.textContent}`;
+      overlayContent.style.opacity = '1';
+    }
+
+    // Sequential Button Fly-in Animation
+    document.addEventListener("DOMContentLoaded", () => {
+      const buttons = document.querySelectorAll(".buttons a");
+      buttons.forEach((button, index) => {
+        button.style.animationDelay = `${index * 0.5}s`;
+      });
+    });
   </script>
+</head>
+<body>
+  <div class="overlay">
+    <div class="overlay-content"></div>
+  </div>
+  <div class="container">
+    <header class="header">
+      <img src="fulllogo_transparent_nobuffer.png" alt="FLY AI's logo">
+    </header>
+    <main class="content">
+      <h2>ENTERPRISE AI</h2>
+      <p>Empowering Intelligent Growth</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-square"></i></a>
+        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+      </div>
+      <div class="buttons">
+        <a href="#" onclick="handleButtonClick(this)">About</a>
+        <a href="#" onclick="handleButtonClick(this)">Services</a>
+        <a href="#" onclick="handleButtonClick(this)">Contact</a>
+      </div>
+    </main>
+  </div>
 </body>
 </html>

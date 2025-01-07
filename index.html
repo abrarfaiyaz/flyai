@@ -226,6 +226,10 @@
 
     // Show bubble container
     bubbleContainer.style.display = 'flex';
+
+    // Clear overlay content to avoid conflict
+    const overlayContent = document.querySelector('.overlay-content');
+    overlayContent.style.opacity = '0';
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -234,22 +238,22 @@
     bubbleContainer.style.display = 'none';
   });
 
-    function handleButtonClick(button) {
-      const overlay = document.querySelector('.overlay');
-      const overlayContent = document.querySelector('.overlay-content');
-      const container = document.querySelector('.container');
+    // function handleButtonClick(button) {
+    //   const overlay = document.querySelector('.overlay');
+    //   const overlayContent = document.querySelector('.overlay-content');
+    //   const container = document.querySelector('.container');
 
-      // Blur and enlarge all content
-      container.classList.add('content-blur');
+    //   // Blur and enlarge all content
+    //   container.classList.add('content-blur');
 
-      // Show overlay
-      overlay.style.opacity = '1';
-      overlay.style.pointerEvents = 'auto';
+    //   // Show overlay
+    //   overlay.style.opacity = '1';
+    //   overlay.style.pointerEvents = 'auto';
 
-      // Show content based on the button clicked
-      overlayContent.textContent = `You clicked: ${button.textContent}`;
-      overlayContent.style.opacity = '1';
-    }
+    //   // Show content based on the button clicked
+    //   overlayContent.textContent = `You clicked: ${button.textContent}`;
+    //   overlayContent.style.opacity = '1';
+    // }
 
     // Sequential Button Fly-in Animation
     document.addEventListener("DOMContentLoaded", () => {
@@ -266,11 +270,11 @@
     <div class="bubble-container">
         <!-- Add 10 bubbles with placeholders -->
         <div class="bubble" style="background-color: #ff6f61;">
-          <img src="person1.jpg" alt="Person 1">
+          <!-- <img src="person1.jpg" alt="Person 1"> -->
           <div class="info">Alice Doe<br>CEO</div>
         </div>
         <div class="bubble" style="background-color: #6a5acd;">
-          <img src="person2.jpg" alt="Person 2">
+          <!-- <img src="person2.jpg" alt="Person 2"> -->
           <div class="info">John Smith<br>CTO</div>
         </div>
         <div class="bubble" style="background-color: #48c774;">

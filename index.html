@@ -25,6 +25,8 @@
       color: #545455;
       text-align: center;
       overflow-x: hidden;
+      transform-origin: center center;
+      transition: transform 0.5s ease-in-out;
     }
 
     /* Main Container Styling */
@@ -67,14 +69,16 @@
       display: inline-block;
       margin: 0 0.5rem;
       text-decoration: none;
-      color: #545455;
-      font-weight: 600;
-      transition: color 0.3s ease, transform 0.3s ease;
+      transition: transform 0.3s ease;
+    }
+
+    .social-links a img {
+      width: 32px;
+      height: 32px;
     }
 
     .social-links a:hover {
-      color: #0073e6;
-      transform: translateY(-5px);
+      transform: scale(1.2);
     }
 
     /* Buttons Styling */
@@ -121,15 +125,21 @@
   <script>
     function handleButtonClick(button) {
       const container = document.querySelector('.container');
+      const body = document.body;
 
-      // Add fade-out effect
-      container.style.animation = 'fadeOut 1s forwards';
+      // Rotate background to 135 degrees
+      body.style.transform = 'rotate(135deg)';
 
-      // Simulate content change after fade-out
+      // Add fade-out effect after rotation
       setTimeout(() => {
-        container.innerHTML = `<p>You clicked: <strong>${button.textContent}</strong></p>`;
-        container.style.animation = 'fadeIn 1s forwards';
-      }, 1000);
+        container.style.animation = 'fadeOut 1s forwards';
+        setTimeout(() => {
+          container.innerHTML = `<p>You clicked: <strong>${button.textContent}</strong></p>`;
+          container.style.animation = 'fadeIn 1s forwards';
+          // Reset background rotation after transition
+          body.style.transform = 'rotate(0deg)';
+        }, 1000);
+      }, 500);
     }
   </script>
 </head>
@@ -150,9 +160,15 @@
 
       <!-- Social Links -->
       <div class="social-links">
-        <a href="https://www.facebook.com" target="_blank">Facebook</a>
-        <a href="https://www.instagram.com" target="_blank">Instagram</a>
-        <a href="https://www.twitter.com" target="_blank">Twitter</a>
+        <a href="https://www.facebook.com" target="_blank">
+          <img src="facebook-icon.png" alt="Facebook">
+        </a>
+        <a href="https://www.instagram.com" target="_blank">
+          <img src="instagram-icon.png" alt="Instagram">
+        </a>
+        <a href="https://www.twitter.com" target="_blank">
+          <img src="x-icon.png" alt="X">
+        </a>
       </div>
 
       <!-- Buttons -->

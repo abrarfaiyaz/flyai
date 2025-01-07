@@ -16,6 +16,10 @@
     body {
       margin: 0;
       font-family: Lato, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       background: url('back.svg') no-repeat center center fixed;
       background-size: cover;
       color: #545455;
@@ -23,10 +27,14 @@
       overflow-x: hidden;
     }
 
+    /* Main Container Styling */
+    .container {
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
     /* Header Styling */
     .header {
       padding: 2rem 0;
-      animation: fadeInDown 1s ease-in-out;
     }
 
     .header img {
@@ -44,7 +52,6 @@
       font-size: 1.125rem;
       line-height: 1;
       margin: 0.5rem 0;
-      animation: slideInLeft 1.5s ease-in-out;
     }
 
     .content p {
@@ -53,7 +60,6 @@
       font-weight: bold;
       line-height: 1.3;
       margin: 1rem 0;
-      animation: slideInRight 1.5s ease-in-out;
     }
 
     /* Social Links Styling */
@@ -74,7 +80,6 @@
     /* Buttons Styling */
     .buttons {
       margin: 1.5rem 0;
-      animation: fadeInUp 2s ease-in-out;
     }
 
     .buttons a {
@@ -95,78 +100,68 @@
     }
 
     /* Keyframe Animations */
-    @keyframes fadeInDown {
+    @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translateY(-50px);
       }
       to {
         opacity: 1;
-        transform: translateY(0);
       }
     }
 
-    @keyframes fadeInUp {
+    @keyframes fadeOut {
       from {
-        opacity: 0;
-        transform: translateY(50px);
+        opacity: 1;
       }
       to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideInLeft {
-      from {
         opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
       }
     }
   </style>
+  <script>
+    function handleButtonClick(button) {
+      const container = document.querySelector('.container');
+
+      // Add fade-out effect
+      container.style.animation = 'fadeOut 1s forwards';
+
+      // Simulate content change after fade-out
+      setTimeout(() => {
+        container.innerHTML = `<p>You clicked: <strong>${button.textContent}</strong></p>`;
+        container.style.animation = 'fadeIn 1s forwards';
+      }, 1000);
+    }
+  </script>
 </head>
 <body>
-  <header class="header">
-    <!-- Logo -->
-    <img 
-      src="fulllogo_transparent_nobuffer.png"
-      alt="FLY AI's logo" 
-    />
-  </header>
+  <div class="container">
+    <header class="header">
+      <!-- Logo -->
+      <img 
+        src="fulllogo_transparent_nobuffer.png"
+        alt="FLY AI's logo" 
+      />
+    </header>
 
-  <main class="content">
-    <!-- Titles -->
-    <h2>ENTERPRISE AI</h2>
-    <p>Empowering Intelligent Growth</p>
+    <main class="content">
+      <!-- Titles -->
+      <h2>ENTERPRISE AI</h2>
+      <p>Empowering Intelligent Growth</p>
 
-    <!-- Social Links -->
-    <div class="social-links">
-      <a href="https://www.facebook.com" target="_blank">Facebook</a>
-      <a href="https://www.instagram.com" target="_blank">Instagram</a>
-      <a href="https://www.twitter.com" target="_blank">Twitter</a>
-    </div>
+      <!-- Social Links -->
+      <div class="social-links">
+        <a href="https://www.facebook.com" target="_blank">Facebook</a>
+        <a href="https://www.instagram.com" target="_blank">Instagram</a>
+        <a href="https://www.twitter.com" target="_blank">Twitter</a>
+      </div>
 
-    <!-- Buttons -->
-    <div class="buttons">
-      <a href="#">About</a>
-      <a href="#">Services</a>
-      <a href="#">Contact</a>
-    </div>
-  </main>
+      <!-- Buttons -->
+      <div class="buttons">
+        <a href="#" onclick="handleButtonClick(this)">About</a>
+        <a href="#" onclick="handleButtonClick(this)">Services</a>
+        <a href="#" onclick="handleButtonClick(this)">Contact</a>
+      </div>
+    </main>
+  </div>
 </body>
 </html>

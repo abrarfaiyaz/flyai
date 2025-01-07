@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About - FLY AI Solutions</title>
+  <title>FLY AI Solutions</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
     /* Basic Reset */
     * {
@@ -16,182 +17,184 @@
     body {
       margin: 0;
       font-family: Lato, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+      background: url('back.svg') no-repeat center center fixed;
+      background-size: cover;
       color: white;
-      overflow: hidden;
     }
 
-    /* About Section */
-    .about-container {
-      position: relative;
-      width: 80%;
-      height: 80%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Center Circle */
-    .center-circle {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: #fff;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      text-align: center;
-    }
-
-    .center-circle h2 {
-      margin: 0;
-    }
-
-    .center-circle p {
-      margin: 0.5rem 0 0;
-      font-size: 0.9rem;
-    }
-
-    /* Circular Array of People */
-    .circle-array {
-      position: absolute;
+    /* Page Wrapper */
+    .page {
       width: 100%;
-      height: 100%;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    .person {
       position: absolute;
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3px solid white;
-      cursor: pointer;
-      transition: transform 0.3s;
+      top: 0;
+      left: 0;
+      transition: transform 0.8s ease-in-out;
     }
 
-    .person img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    /* Index Page */
+    #index-page {
+      z-index: 1;
     }
 
-    .person:hover {
+    /* About Page */
+    #about-page {
+      transform: translateX(100%);
+      z-index: 0;
+    }
+
+    /* Header Styling */
+    .header img {
+      max-height: 9rem;
+      transition: transform 0.3s ease;
+    }
+
+    .header img:hover {
       transform: scale(1.1);
     }
 
-    /* Navigation Arrows */
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 2rem;
-      color: white;
-      cursor: pointer;
-      z-index: 2;
-      user-select: none;
+    /* Content Styling */
+    .content h2 {
+      font-family: "Hind Madurai", sans-serif;
+      font-size: 1.125rem;
+      line-height: 1;
+      margin: 0.5rem 0;
     }
 
-    .arrow.left {
-      left: 10px;
+    .content p {
+      font-family: "Tenor Sans", sans-serif;
+      font-size: 2.5rem;
+      font-weight: bold;
+      line-height: 1.3;
+      margin: 1rem 0;
     }
 
-    .arrow.right {
-      right: 10px;
+    /* Buttons Styling */
+    .buttons a {
+      display: inline-block;
+      margin: 0 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: #545455;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 2rem;
+      font-weight: bold;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .buttons a:hover {
+      transform: scale(1.1);
+      background: #0073e6;
+    }
+
+    /* About Page Content */
+    .about {
+      text-align: center;
+      width: 80%;
+    }
+
+    .team {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .member {
+      text-align: center;
+      width: 150px;
+    }
+
+    .member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 0.5rem;
+    }
+
+    .member h3 {
+      margin: 0;
+    }
+
+    .member p {
+      font-size: 0.9rem;
+      margin: 0.2rem 0;
     }
   </style>
-  <script>
-    const team = [
-      { name: "Jane Doe", title: "Founder & CEO", img: "person1.jpg" },
-      { name: "John Smith", title: "CTO", img: "person2.jpg" },
-      { name: "Alice Brown", title: "Lead Developer", img: "person3.jpg" },
-      { name: "Michael Lee", title: "Marketing Head", img: "person4.jpg" },
-      { name: "Emily White", title: "Product Manager", img: "person5.jpg" },
-    ];
-
-    let currentIndex = 0;
-
-    function updateCenterPerson() {
-      const centerCircle = document.querySelector(".center-circle");
-      centerCircle.querySelector("h2").textContent = team[currentIndex].name;
-      centerCircle.querySelector("p").textContent = team[currentIndex].title;
-    }
-
-    function updateCircularArray() {
-      const circleArray = document.querySelector(".circle-array");
-      const angleStep = (2 * Math.PI) / team.length;
-      const radius = 250;
-
-      circleArray.innerHTML = ""; // Clear previous array
-      team.forEach((person, index) => {
-        const angle = angleStep * ((index - currentIndex + team.length) % team.length);
-        const x = radius * Math.cos(angle);
-        const y = radius * Math.sin(angle);
-
-        const personDiv = document.createElement("div");
-        personDiv.classList.add("person");
-        personDiv.style.transform = `translate(${x}px, ${y}px)`;
-        personDiv.innerHTML = `<img src="${person.img}" alt="${person.name}">`;
-
-        circleArray.appendChild(personDiv);
-      });
-    }
-
-    function handleArrowPress(direction) {
-      if (direction === "left") {
-        currentIndex = (currentIndex - 1 + team.length) % team.length;
-      } else if (direction === "right") {
-        currentIndex = (currentIndex + 1) % team.length;
-      }
-      updateCenterPerson();
-      updateCircularArray();
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      updateCenterPerson();
-      updateCircularArray();
-
-      // Add event listeners for arrow keys
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "ArrowLeft") {
-          handleArrowPress("left");
-        } else if (event.key === "ArrowRight") {
-          handleArrowPress("right");
-        }
-      });
-
-      // Add event listeners for arrow buttons
-      document.querySelector(".arrow.left").addEventListener("click", () => handleArrowPress("left"));
-      document.querySelector(".arrow.right").addEventListener("click", () => handleArrowPress("right"));
-    });
-  </script>
 </head>
 <body>
-  <div class="about-container">
-    <!-- Left Arrow -->
-    <div class="arrow left">&#9664;</div>
-
-    <!-- Circular Array -->
-    <div class="circle-array"></div>
-
-    <!-- Center Circle -->
-    <div class="center-circle">
-      <h2></h2>
-      <p></p>
+  <!-- Index Page -->
+  <div id="index-page" class="page">
+    <div class="container">
+      <header class="header">
+        <img src="fulllogo_transparent_nobuffer.png" alt="FLY AI's logo">
+      </header>
+      <main class="content">
+        <h2>ENTERPRISE AI</h2>
+        <p>Empowering Intelligent Growth</p>
+        <div class="buttons">
+          <a href="#" onclick="showPage('about-page')">About Us</a>
+        </div>
+      </main>
     </div>
-
-    <!-- Right Arrow -->
-    <div class="arrow right">&#9654;</div>
   </div>
+
+  <!-- About Page -->
+  <div id="about-page" class="page">
+    <div class="about">
+      <h1>About Us</h1>
+      <p>We are a team dedicated to delivering enterprise AI solutions.</p>
+      <div class="team">
+        <div class="member">
+          <img src="person1.jpg" alt="Jane Doe">
+          <h3>Jane Doe</h3>
+          <p>Founder & CEO</p>
+        </div>
+        <div class="member">
+          <img src="person2.jpg" alt="John Smith">
+          <h3>John Smith</h3>
+          <p>CTO</p>
+        </div>
+        <div class="member">
+          <img src="person3.jpg" alt="Alice Brown">
+          <h3>Alice Brown</h3>
+          <p>Lead Developer</p>
+        </div>
+        <div class="member">
+          <img src="person4.jpg" alt="Michael Lee">
+          <h3>Michael Lee</h3>
+          <p>Marketing Head</p>
+        </div>
+        <div class="member">
+          <img src="person5.jpg" alt="Emily White">
+          <h3>Emily White</h3>
+          <p>Product Manager</p>
+        </div>
+      </div>
+      <div class="buttons">
+        <a href="#" onclick="showPage('index-page')">Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showPage(pageId) {
+      const indexPage = document.getElementById('index-page');
+      const aboutPage = document.getElementById('about-page');
+
+      if (pageId === 'about-page') {
+        indexPage.style.transform = 'translateX(-100%)';
+        aboutPage.style.transform = 'translateX(0)';
+      } else if (pageId === 'index-page') {
+        indexPage.style.transform = 'translateX(0)';
+        aboutPage.style.transform = 'translateX(100%)';
+      }
+    }
+  </script>
 </body>
 </html>

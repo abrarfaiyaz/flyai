@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Animation with Sound</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #000; /* Solid black background */
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    .logo {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-transform: uppercase;
+    }
+
+    .fly-ai-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px; /* Space between "FLY" and "AI" */
+    }
+
+    .fly {
+      display: flex;
+      gap: 10px;
+      font-size: 64px;
+      font-weight: 300; /* Thin font for "FLY" */
+    }
+
+    .fly span {
+      animation: bounce 1.5s infinite ease-in-out;
+    }
+
+    .fly span:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .fly span:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    .fly span:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
+    .ai {
+      background: linear-gradient(90deg, #00c9ff, #92fe9d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 48px; /* Smaller font size for "AI" */
+      font-weight: 700; /* Bold font for "AI" */
+      animation: glow 1.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 5px #92fe9d, 0 0 15px #00c9ff, 0 0 20px #92fe9d;
+      }
+      50% {
+        text-shadow: 0 0 10px #00c9ff, 0 0 30px #92fe9d, 0 0 40px #00c9ff;
+      }
+    }
+
+    .coming-soon-container {
+      font-size: 24px;
+      font-weight: 300;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .coming {
+      margin-right: 10px;
+      color: #ff4081; /* Cool pink color for "Coming" */
+    }
+
+    .dynamic-text {
+      color: #00e676; /* Vibrant green for dynamic words */
+      border-right: 2px solid #00e676; /* Cursor effect */
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 24px;
+      letter-spacing: 1px;
+      animation: blink 0.5s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <div class="fly-ai-container">
+      <div class="fly">
+        <span>F</span>
+        <span>L</span>
+        <span>Y</span>
+      </div>
+      <div class="ai">AI</div>
+    </div>
+    <div class="coming-soon-container">
+      <span class="coming">Coming</span>
+      <span class="dynamic-text"></span>
+    </div>
+  </div>
+
+  <script>
+    // Words to cycle through
+    const words = ["soon... ", "for your business ", "for the better! "];
+    const dynamicText = document.querySelector(".dynamic-text");
+
+    // Typing effect variables
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    // Adjust typing and erasing speeds
+    const typingSpeed = 100; // Typing speed in milliseconds
+    const erasingSpeed = 50; // Erasing speed in milliseconds
+    const delayBetweenWords = 1500; // Delay before moving to the next word
+
+    // Typing sound effect
+    const typingSound = new Audio(
+      "https://assets.mixkit.co/sfx/download/mixkit-typing-single-key-2554.wav"
+    );
+
+    function playTypingSound() {
+      typingSound.currentTime = 0; // Reset sound to the beginning
+      typingSound.play();
+    }
+
+    function typeEffect() {
+      const currentWord = words[wordIndex]; // Get the current word
+
+      if (isDeleting) {
+        // Erase characters
+        dynamicText.textContent = currentWord.substring(0, charIndex--);
+      } else {
+        // Type characters
+        dynamicText.textContent = currentWord.substring(0, charIndex++);
+        playTypingSound(); // Play sound for each typed character
+      }
+
+      // Determine the next delay
+      let delay = isDeleting ? erasingSpeed : typingSpeed;
+
+      // When the word is fully typed
+      if (!isDeleting && charIndex === currentWord.length) {
+        delay = delayBetweenWords; // Pause before erasing
+        isDeleting = true;
+      }
+
+      // When the word is fully erased
+      if (isDeleting && charIndex === 0) {
+        isDeleting = false; // Switch to typing mode
+        wordIndex = (wordIndex + 1) % words.length; // Move to the next word
+      }
+
+      // Call the function again after the delay
+      setTimeout(typeEffect, delay);
+    }
+
+    // Start the typing effect on page load
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(typeEffect, 1000); // Start typing after a short delay
+    });
+  </script>
+</body>
+</html>

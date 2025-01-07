@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLY AI Solutions</title>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <title>About - FLY AI Solutions</title>
   <style>
     /* Basic Reset */
     * {
@@ -21,255 +20,178 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background: url('back.svg') no-repeat center center fixed;
-      background-size: cover;
-      color: #545455;
-      text-align: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* Dark Transparent Layer */
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease-in-out;
-      z-index: 2;
-    }
-
-    /* Content Displayed on Overlay */
-    .overlay-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      text-align: center;
-      font-size: 1.5rem;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
-    }
-
-    /* Main Container Styling */
-    .container {
-      animation: fadeIn 1.5s ease-in-out;
-      position: relative;
-      z-index: 1;
-      transition: transform 0.5s ease, filter 0.5s ease;
-    }
-
-    .container.content-blur {
-      transform: scale(2) translateY(-20%);
-      filter: blur(10px);
-      z-index: 0;
-    }
-
-    /* Header Styling */
-    .header img {
-      max-height: 9rem;
-      transition: transform 0.3s ease;
-    }
-
-    .header img:hover {
-      transform: scale(1.1);
-    }
-
-    /* Content Styling */
-    .content h2 {
-      font-family: "Hind Madurai", sans-serif;
-      font-size: 1.125rem;
-      line-height: 1;
-      margin: 0.5rem 0;
-    }
-
-    .content p {
-      font-family: "Tenor Sans", sans-serif;
-      font-size: 2.5rem;
-      font-weight: bold;
-      line-height: 1.3;
-      margin: 1rem 0;
-    }
-
-    /* Social Links Styling */
-    .social-links a {
-      display: inline-block;
-      margin: 0 0.5rem;
-      text-decoration: none;
-      transition: transform 0.3s ease;
-      font-size: 2rem;
-      color: #545455;
-    }
-
-    .social-links a:hover {
-      color: #0073e6;
-      transform: scale(1.2);
-    }
-
-    /* Buttons Styling */
-    .buttons {
-      margin: 1.5rem 0;
-    }
-
-    .buttons a {
-      display: inline-block;
-      margin: 0 0.5rem;
-      padding: 0.75rem 1.5rem;
-      background: #545455;
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 2rem;
-      font-weight: bold;
-      transform: translateY(100%);
-      opacity: 0;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      animation: buttonFlyIn 1s ease-out forwards;
-    }
-
-    .buttons a:hover {
-      background: #0073e6;
-      transform: scale(1.1);
-    }
-
-    /* About Page Content Styling */
-    .about {
-      text-align: left;
+      background: rgba(0, 0, 0, 0.9);
       color: white;
+      overflow: hidden;
     }
 
-    .about h1 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    .team {
+    /* About Section */
+    .about-container {
+      position: relative;
+      width: 80%;
+      height: 80%;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 1rem;
+      align-items: center;
     }
 
-    .member {
-      text-align: center;
+    /* Center Circle */
+    .center-circle {
       width: 200px;
-    }
-
-    .member img {
-      width: 100px;
-      height: 100px;
+      height: 200px;
       border-radius: 50%;
-      object-fit: cover;
+      background: #fff;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      text-align: center;
     }
 
-    .member h3 {
-      margin: 0.5rem 0 0.2rem;
-    }
-
-    .member p {
+    .center-circle h2 {
       margin: 0;
     }
 
-    /* Animation Keyframes */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+    .center-circle p {
+      margin: 0.5rem 0 0;
+      font-size: 0.9rem;
     }
 
-    @keyframes buttonFlyIn {
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+    /* Circular Array of People */
+    .circle-array {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .person {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid white;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .person img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .person:hover {
+      transform: scale(1.1);
+    }
+
+    /* Navigation Arrows */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      z-index: 2;
+      user-select: none;
+    }
+
+    .arrow.left {
+      left: 10px;
+    }
+
+    .arrow.right {
+      right: 10px;
     }
   </style>
   <script>
-    function handleButtonClick(button) {
-      const overlay = document.querySelector('.overlay');
-      const overlayContent = document.querySelector('.overlay-content');
-      const container = document.querySelector('.container');
+    const team = [
+      { name: "Jane Doe", title: "Founder & CEO", img: "person1.jpg" },
+      { name: "John Smith", title: "CTO", img: "person2.jpg" },
+      { name: "Alice Brown", title: "Lead Developer", img: "person3.jpg" },
+      { name: "Michael Lee", title: "Marketing Head", img: "person4.jpg" },
+      { name: "Emily White", title: "Product Manager", img: "person5.jpg" },
+    ];
 
-      // Blur and enlarge all content
-      container.classList.add('content-blur');
+    let currentIndex = 0;
 
-      // Show overlay
-      overlay.style.opacity = '1';
-      overlay.style.pointerEvents = 'auto';
-
-      // Show content based on the button clicked
-      if (button.textContent === "About") {
-        overlayContent.innerHTML = `
-          <div class="about">
-            <h1>About</h1>
-            <p>We are a team dedicated to delivering enterprise AI solutions.</p>
-            <div class="team">
-              <div class="member">
-                <img src="person1.jpg" alt="Person 1">
-                <h3>Jane Doe</h3>
-                <p>CEO</p>
-              </div>
-              <div class="member">
-                <img src="person2.jpg" alt="Person 2">
-                <h3>John Smith</h3>
-                <p>CTO</p>
-              </div>
-              <div class="member">
-                <img src="person3.jpg" alt="Person 3">
-                <h3>Alice Brown</h3>
-                <p>Lead Developer</p>
-              </div>
-            </div>
-          </div>
-        `;
-      } else {
-        overlayContent.textContent = `You clicked: ${button.textContent}`;
-      }
-
-      overlayContent.style.opacity = '1';
+    function updateCenterPerson() {
+      const centerCircle = document.querySelector(".center-circle");
+      centerCircle.querySelector("h2").textContent = team[currentIndex].name;
+      centerCircle.querySelector("p").textContent = team[currentIndex].title;
     }
 
-    // Sequential Button Fly-in Animation
-    document.addEventListener("DOMContentLoaded", () => {
-      const buttons = document.querySelectorAll(".buttons a");
-      buttons.forEach((button, index) => {
-        button.style.animationDelay = `${index * 0.5}s`;
+    function updateCircularArray() {
+      const circleArray = document.querySelector(".circle-array");
+      const angleStep = (2 * Math.PI) / team.length;
+      const radius = 250;
+
+      circleArray.innerHTML = ""; // Clear previous array
+      team.forEach((person, index) => {
+        const angle = angleStep * ((index - currentIndex + team.length) % team.length);
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+
+        const personDiv = document.createElement("div");
+        personDiv.classList.add("person");
+        personDiv.style.transform = `translate(${x}px, ${y}px)`;
+        personDiv.innerHTML = `<img src="${person.img}" alt="${person.name}">`;
+
+        circleArray.appendChild(personDiv);
       });
+    }
+
+    function handleArrowPress(direction) {
+      if (direction === "left") {
+        currentIndex = (currentIndex - 1 + team.length) % team.length;
+      } else if (direction === "right") {
+        currentIndex = (currentIndex + 1) % team.length;
+      }
+      updateCenterPerson();
+      updateCircularArray();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateCenterPerson();
+      updateCircularArray();
+
+      // Add event listeners for arrow keys
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") {
+          handleArrowPress("left");
+        } else if (event.key === "ArrowRight") {
+          handleArrowPress("right");
+        }
+      });
+
+      // Add event listeners for arrow buttons
+      document.querySelector(".arrow.left").addEventListener("click", () => handleArrowPress("left"));
+      document.querySelector(".arrow.right").addEventListener("click", () => handleArrowPress("right"));
     });
   </script>
 </head>
 <body>
-  <div class="overlay">
-    <div class="overlay-content"></div>
-  </div>
-  <div class="container">
-    <header class="header">
-      <img src="fulllogo_transparent_nobuffer.png" alt="FLY AI's logo" />
-    </header>
+  <div class="about-container">
+    <!-- Left Arrow -->
+    <div class="arrow left">&#9664;</div>
 
-    <main class="content">
-      <h2>ENTERPRISE AI</h2>
-      <p>Empowering Intelligent Growth</p>
+    <!-- Circular Array -->
+    <div class="circle-array"></div>
 
-      <div class="social-links">
-        <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-square"></i></a>
-        <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-      </div>
+    <!-- Center Circle -->
+    <div class="center-circle">
+      <h2></h2>
+      <p></p>
+    </div>
 
-      <div class="buttons">
-        <a href="#" onclick="handleButtonClick(this)">About</a>
-        <a href="#" onclick="handleButtonClick(this)">Services</a>
-        <a href="#" onclick="handleButtonClick(this)">Contact</a>
-      </div>
-    </main>
+    <!-- Right Arrow -->
+    <div class="arrow right">&#9654;</div>
   </div>
 </body>
 </html>

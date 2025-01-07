@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FLY AI Solutions</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
     /* Basic Reset */
     * {
@@ -28,7 +29,7 @@
       position: relative;
     }
 
-    /* Ripple Effect Styling */
+    /* Ripple Effect as Background */
     .ripple {
       position: absolute;
       width: 100px;
@@ -36,20 +37,23 @@
       background: rgba(0, 0, 0, 0.2);
       border-radius: 50%;
       transform: scale(0);
-      animation: ripple 1s ease-out forwards;
+      animation: rippleBackground 1.5s ease-out forwards;
       pointer-events: none;
+      z-index: -1;
     }
 
-    @keyframes ripple {
+    @keyframes rippleBackground {
       to {
         transform: scale(15);
-        opacity: 0;
+        opacity: 0.9;
       }
     }
 
     /* Main Container Styling */
     .container {
       animation: fadeIn 1.5s ease-in-out;
+      position: relative;
+      z-index: 1;
     }
 
     /* Header Styling */
@@ -88,14 +92,12 @@
       margin: 0 0.5rem;
       text-decoration: none;
       transition: transform 0.3s ease;
-    }
-
-    .social-links a img {
-      width: 32px;
-      height: 32px;
+      font-size: 2rem;
+      color: #545455;
     }
 
     .social-links a:hover {
+      color: #0073e6;
       transform: scale(1.2);
     }
 
@@ -154,14 +156,18 @@
       ripple.style.left = `${event.clientX}px`;
       ripple.style.top = `${event.clientY}px`;
 
-      // Add fade-out effect to content
+      // Add fade-out effect to current content
       container.style.animation = 'fadeOut 1s forwards';
 
-      // Clean up ripple and update content
+      // Update content after ripple effect
       setTimeout(() => {
-        document.body.removeChild(ripple);
         container.innerHTML = `<p>You clicked: <strong>${button.textContent}</strong></p>`;
         container.style.animation = 'fadeIn 1s forwards';
+
+        // Remove ripple after animation
+        setTimeout(() => {
+          document.body.removeChild(ripple);
+        }, 1500);
       }, 1000);
     }
 
@@ -192,13 +198,13 @@
       <!-- Social Links -->
       <div class="social-links">
         <a href="https://www.facebook.com" target="_blank">
-          <img src="facebook-icon.png" alt="Facebook">
+          <i class="fab fa-facebook-square"></i>
         </a>
         <a href="https://www.instagram.com" target="_blank">
-          <img src="instagram-icon.png" alt="Instagram">
+          <i class="fab fa-instagram"></i>
         </a>
         <a href="https://www.twitter.com" target="_blank">
-          <img src="x-icon.png" alt="X">
+          <i class="fab fa-x-twitter"></i>
         </a>
       </div>
 

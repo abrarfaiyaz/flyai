@@ -25,28 +25,35 @@
       background-size: cover;
       color: #545455;
       text-align: center;
-      overflow-x: hidden;
+      overflow: hidden;
       position: relative;
     }
 
-    /* Ripple Effect as Background */
-    .ripple {
+    /* Dark Transparent Layer */
+    .overlay {
       position: absolute;
-      width: 100px;
-      height: 100px;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 50%;
-      transform: scale(0);
-      animation: rippleBackground 1.5s ease-out forwards;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      opacity: 0;
       pointer-events: none;
-      z-index: -1;
+      transition: opacity 0.5s ease-in-out;
+      z-index: 2;
     }
 
-    @keyframes rippleBackground {
-      to {
-        transform: scale(15);
-        opacity: 0.9;
-      }
+    /* Content Displayed on Overlay */
+    .overlay-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      text-align: center;
+      font-size: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
     }
 
     /* Main Container Styling */
@@ -59,6 +66,9 @@
     /* Header Styling */
     .header {
       padding: 2rem 0;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.5s ease, filter 0.5s ease;
     }
 
     .header img {
@@ -68,6 +78,12 @@
 
     .header img:hover {
       transform: scale(1.1);
+    }
+
+    .header.logo-blur {
+      transform: scale(2) translateY(-20%);
+      filter: blur(10px);
+      z-index: 0;
     }
 
     /* Content Styling */
@@ -115,7 +131,7 @@
       text-decoration: none;
       border-radius: 2rem;
       font-weight: bold;
-      transform: translateX(-100%);
+      transform: translateY(100%);
       opacity: 0;
       transition: background-color 0.3s ease, transform 0.3s ease;
       animation: buttonFlyIn 1s ease-out forwards;
@@ -138,37 +154,27 @@
 
     @keyframes buttonFlyIn {
       to {
-        transform: translateX(0);
+        transform: translateY(0);
         opacity: 1;
       }
     }
   </style>
   <script>
-    function handleButtonClick(button, event) {
-      const container = document.querySelector('.container');
+    function handleButtonClick(button) {
+      const overlay = document.querySelector('.overlay');
+      const overlayContent = document.querySelector('.overlay-content');
+      const header = document.querySelector('.header');
 
-      // Create ripple effect
-      const ripple = document.createElement('div');
-      ripple.classList.add('ripple');
-      document.body.appendChild(ripple);
+      // Blur and enlarge logo
+      header.classList.add('logo-blur');
 
-      // Position ripple at the click location
-      ripple.style.left = `${event.clientX}px`;
-      ripple.style.top = `${event.clientY}px`;
+      // Show overlay
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'auto';
 
-      // Add fade-out effect to current content
-      container.style.animation = 'fadeOut 1s forwards';
-
-      // Update content after ripple effect
-      setTimeout(() => {
-        container.innerHTML = `<p>You clicked: <strong>${button.textContent}</strong></p>`;
-        container.style.animation = 'fadeIn 1s forwards';
-
-        // Remove ripple after animation
-        setTimeout(() => {
-          document.body.removeChild(ripple);
-        }, 1500);
-      }, 1000);
+      // Show content on overlay
+      overlayContent.textContent = `You clicked: ${button.textContent}`;
+      overlayContent.style.opacity = '1';
     }
 
     // Sequential Button Fly-in Animation
@@ -181,6 +187,9 @@
   </script>
 </head>
 <body>
+  <div class="overlay">
+    <div class="overlay-content"></div>
+  </div>
   <div class="container">
     <header class="header">
       <!-- Logo -->
@@ -204,15 +213,15 @@
           <i class="fab fa-instagram"></i>
         </a>
         <a href="https://www.twitter.com" target="_blank">
-          <i class="fab fa-x-twitter"></i>
+          <i class="fab fa-twitter"></i>
         </a>
       </div>
 
       <!-- Buttons -->
       <div class="buttons">
-        <a href="#" onclick="handleButtonClick(this, event)">About</a>
-        <a href="#" onclick="handleButtonClick(this, event)">Services</a>
-        <a href="#" onclick="handleButtonClick(this, event)">Contact</a>
+        <a href="#" onclick="handleButtonClick(this)">About</a>
+        <a href="#" onclick="handleButtonClick(this)">Services</a>
+        <a href="#" onclick="handleButtonClick(this)">Contact</a>
       </div>
     </main>
   </div>

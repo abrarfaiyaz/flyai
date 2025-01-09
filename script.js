@@ -14,17 +14,16 @@
     overlay.style.pointerEvents = 'auto'; // Enable interactions with overlay
   }
   
-  
-// Typing Animation Variables
+  // Typing Animation Variables
 let typingSpeed = 100; // Speed for typing
 let pauseBeforeTyping = 800; // Pause duration before typing
 
-// Function to add a blinking cursor effect dynamically
+// Function to set active cursor
 function setActiveCursor(element) {
   document.querySelectorAll("#dynamic-part, #dynamic-end").forEach((el) => {
-    el.style.borderRight = "none"; // Remove cursor from all elements
+    el.style.borderRight = "none"; // Remove cursor
   });
-  element.style.borderRight = "2px solid #545455"; // Add cursor to the active element
+  element.style.borderRight = "2px solid #545455"; // Add cursor to active element
 }
 
 // Function to animate selection (from left to right)
@@ -32,6 +31,7 @@ function selectText(element, callback) {
   setActiveCursor(element);
   const text = element.textContent;
   let charIndex = 0;
+  console.log(`Starting selection animation for: "${text}"`);
   function animateSelection() {
     element.innerHTML = `<span class="selected">${text.substring(
       0,
@@ -40,8 +40,9 @@ function selectText(element, callback) {
     charIndex++;
     if (charIndex < text.length) {
       setTimeout(animateSelection, 50); // Speed for selection animation
-    } else if (callback) {
-      callback();
+    } else {
+      console.log(`Selection animation completed for: "${text}"`);
+      if (callback) callback();
     }
   }
   animateSelection();
@@ -50,6 +51,7 @@ function selectText(element, callback) {
 // Function to erase the entire word
 function eraseWord(element, callback) {
   setActiveCursor(element);
+  console.log(`Erasing text for: "${element.textContent}"`);
   element.innerHTML = ""; // Erase content instantly
   setTimeout(() => {
     if (callback) callback(); // Add a pause before calling the next step
@@ -60,13 +62,15 @@ function eraseWord(element, callback) {
 function typeText(element, text, callback) {
   setActiveCursor(element);
   let charIndex = 0;
+  console.log(`Starting typing animation for: "${text}"`);
   function type() {
     if (charIndex < text.length) {
       element.textContent += text[charIndex];
       charIndex++;
       setTimeout(type, typingSpeed);
-    } else if (callback) {
-      callback();
+    } else {
+      console.log(`Typing animation completed for: "${text}"`);
+      if (callback) callback();
     }
   }
   type();
@@ -74,7 +78,7 @@ function typeText(element, text, callback) {
 
 // Animation Sequence
 function runAnimation() {
-  console.log("Starting text animation...");
+  console.log("Starting text animation sequence...");
   selectText(dynamicPart, () => {
     eraseWord(dynamicPart, () => {
       typeText(dynamicPart, "Business", () => {
@@ -83,7 +87,7 @@ function runAnimation() {
             eraseWord(dynamicEnd, () => {
               typeText(dynamicEnd, "Dynamic AI Agents", () => {
                 dynamicEnd.classList.add("highlight");
-                console.log("Text animation completed!");
+                console.log("Text animation completed for all parts!");
               });
             });
           });
@@ -93,11 +97,11 @@ function runAnimation() {
   });
 }
 
-// Ensure Buttons Animation Finishes First
+// Wait for Buttons Animation to Finish
 document.addEventListener("DOMContentLoaded", () => {
   const lastButton = document.querySelector(".buttons a:nth-child(3)");
 
-  // Fallback timer in case `animationend` doesn't trigger
+  // Fallback timer to ensure animation starts
   const fallbackTimer = setTimeout(() => {
     console.log("Fallback timer triggered.");
     runAnimation();
@@ -110,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     runAnimation(); // Start text animation
   });
 });
+
 
 
 //   const dynamicPart = document.getElementById("dynamic-part");

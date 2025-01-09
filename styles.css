@@ -233,11 +233,24 @@
   }
   
   /* Highlight for Selection */
-  .selected {
+  /* .selected {
     background-color: #c4e2ff;
     color: #000;
-  }
-  
+  } */
+  /* Highlight for Selection */
+.selected {
+  background-color: #333; /* Close to black */
+  color: #fff; /* Inverted text color */
+}
+
+/* Highlight for "Dynamic AI Agents"
+.highlight {
+  background-color: #333; /* Close to black */
+  color: #fff; /* Inverted text color */
+  /* font-weight: bold; */
+  /* padding: 0 4px; Visual highlight padding */
+/* } */ 
+
   /* Highlight for "Dynamic AI Agents" */
   .highlight {
     background: linear-gradient(to right, #ff9a9e, #fad0c4);

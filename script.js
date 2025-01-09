@@ -74,20 +74,16 @@ function typeText(element, text, callback) {
 
 // Animation Sequence
 function runAnimation() {
-  // Step 1: Animate selection of "Growth"
+  console.log("Starting text animation...");
   selectText(dynamicPart, () => {
-    // Step 2: Erase the entire word "Growth"
     eraseWord(dynamicPart, () => {
-      // Step 3: Type "Business"
       typeText(dynamicPart, "Business", () => {
         setTimeout(() => {
-          // Step 4: Animate selection of "Intelligence"
           selectText(dynamicEnd, () => {
-            // Step 5: Erase the entire word "Intelligence"
             eraseWord(dynamicEnd, () => {
-              // Step 6: Type and Highlight "Dynamic AI Agents"
               typeText(dynamicEnd, "Dynamic AI Agents", () => {
                 dynamicEnd.classList.add("highlight");
+                console.log("Text animation completed!");
               });
             });
           });
@@ -97,13 +93,24 @@ function runAnimation() {
   });
 }
 
-// Wait for Buttons Animation to Finish
+// Ensure Buttons Animation Finishes First
 document.addEventListener("DOMContentLoaded", () => {
   const lastButton = document.querySelector(".buttons a:nth-child(3)");
+
+  // Fallback timer in case `animationend` doesn't trigger
+  const fallbackTimer = setTimeout(() => {
+    console.log("Fallback timer triggered.");
+    runAnimation();
+  }, 2000); // Adjust delay to match button animation duration
+
+  // Trigger animation when the last button finishes flying in
   lastButton.addEventListener("animationend", () => {
-    runAnimation(); // Start the dynamic part animation after buttons fly in
+    clearTimeout(fallbackTimer); // Cancel fallback
+    console.log("Button animation ended.");
+    runAnimation(); // Start text animation
   });
 });
+
 
 //   const dynamicPart = document.getElementById("dynamic-part");
 // const dynamicEnd = document.getElementById("dynamic-end");

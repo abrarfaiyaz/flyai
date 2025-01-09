@@ -26,13 +26,15 @@
     overlay.style.opacity = '1'; // Show overlay
     overlay.style.pointerEvents = 'auto'; // Enable interactions with overlay
   }
+  
+  
+
   const dynamicPart = document.getElementById("dynamic-part");
 const dynamicEnd = document.getElementById("dynamic-end");
 
 // Typing Animation Variables
 let typingSpeed = 100; // Speed for typing
-let erasingSpeed = 50; // Speed for erasing
-let selectionSpeed = 50; // Speed for selection animation
+let pauseBeforeTyping = 800; // Pause duration before typing
 
 // Function to animate selection (from left to right)
 function selectText(element, callback) {
@@ -45,7 +47,7 @@ function selectText(element, callback) {
     )}</span>${text.substring(charIndex + 1)}`;
     charIndex++;
     if (charIndex < text.length) {
-      setTimeout(animateSelection, selectionSpeed);
+      setTimeout(animateSelection, 50); // Speed for selection animation
     } else if (callback) {
       callback();
     }
@@ -53,20 +55,12 @@ function selectText(element, callback) {
   animateSelection();
 }
 
-// Function to erase text
-function eraseText(element, callback) {
-  let text = element.textContent;
-  let charIndex = text.length;
-  function erase() {
-    if (charIndex > 0) {
-      element.textContent = text.substring(0, charIndex - 1);
-      charIndex--;
-      setTimeout(erase, erasingSpeed);
-    } else if (callback) {
-      callback();
-    }
-  }
-  erase();
+// Function to erase the entire word
+function eraseWord(element, callback) {
+  element.innerHTML = ""; // Erase content instantly
+  setTimeout(() => {
+    if (callback) callback(); // Add a pause before calling the next step
+  }, pauseBeforeTyping);
 }
 
 // Function to type out text
@@ -88,15 +82,15 @@ function typeText(element, text, callback) {
 function runAnimation() {
   // Step 1: Animate selection of "Growth"
   selectText(dynamicPart, () => {
-    // Step 2: Erase "Growth"
-    eraseText(dynamicPart, () => {
+    // Step 2: Erase the entire word "Growth"
+    eraseWord(dynamicPart, () => {
       // Step 3: Type "Business"
       typeText(dynamicPart, "Business", () => {
         setTimeout(() => {
           // Step 4: Animate selection of "Intelligence"
           selectText(dynamicEnd, () => {
-            // Step 5: Erase "Intelligence"
-            eraseText(dynamicEnd, () => {
+            // Step 5: Erase the entire word "Intelligence"
+            eraseWord(dynamicEnd, () => {
               // Step 6: Type and Highlight "Dynamic AI Agents"
               typeText(dynamicEnd, "Dynamic AI Agents", () => {
                 dynamicEnd.classList.add("highlight");

@@ -180,11 +180,11 @@
     animation: blink 0.6s step-end infinite; */
   /* } */
   
-  @keyframes blink {
+  /* @keyframes blink {
     50% {
       border-color: transparent;
     }
-  }
+  } */
   
   /* Highlight for "Dynamic AI Agents" */
   /* .highlight {
@@ -219,18 +219,26 @@
 
 /* Tagline Styling */
 #tagline {
-    font-family: "Tenor Sans", sans-serif;
-    font-size: 2.5rem;
-    font-weight: bold;
-    line-height: 1.3;
-    margin: 1rem 0;
+  font-family: "Tenor Sans", sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.3;
+  margin: 1rem 0;
+}
+
+#dynamic-part, #dynamic-end {
+  display: inline;
+  font-weight: bold;
+  border-right: 2px solid #545455; /* Blinking cursor effect */
+  animation: blink 0.6s step-end infinite;
+}
+
+/* Blink Animation for Cursor */
+@keyframes blink {
+  50% {
+    border-color: transparent;
   }
-  
-  #dynamic-part, #dynamic-end {
-    display: inline;
-    font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
+}
   
   /* Highlight for Selection */
   /* .selected {
@@ -246,7 +254,7 @@
 /* Highlight for "Dynamic AI Agents"
 .highlight {
   background-color: #333; /* Close to black */
-  color: #fff; /* Inverted text color */
+  /* color: #fff; Inverted text color */
   /* font-weight: bold; */
   /* padding: 0 4px; Visual highlight padding */
 /* } */ 

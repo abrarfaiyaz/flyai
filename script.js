@@ -29,59 +29,43 @@
   
 
 
-  
-  const phrases = [
-    "Empowering Growth with Intelligence",
-    "Empowering with Intelligence",
-    "Empowering Business with Intelligence",
-    "Empowering Business with",
-    "Empowering Business with Dynamic AI Agents",
-  ];
-  
-  const textElement = document.getElementById("dynamic-text");
-  let currentPhraseIndex = 0;
-  let charIndex = 0;
-  let isErasing = false;
-  
-  const typingSpeed = 100; // Typing speed in milliseconds
-  const erasingSpeed = 50; // Erasing speed in milliseconds
-  const delayBetweenPhrases = 1500; // Delay before switching phrases
-  
-  // function typeText() {
-  //   const fullText = phrases[currentPhraseIndex];
-  //   const highlight = currentPhraseIndex === 4; // Highlight "Dynamic AI Agents"
-  
-  //   if (isErasing) {
-  //     charIndex--;
-  //     textElement.innerHTML = fullText.substring(0, charIndex);
-  //   } else {
-  //     charIndex++;
-  //     textElement.innerHTML = fullText.substring(0, charIndex);
-  //   }
-  
-  //   if (!isErasing && charIndex === fullText.length) {
-  //     if (highlight) {
-  //       // Add highlight for "Dynamic AI Agents"
-  //       textElement.innerHTML = fullText.replace(
-  //         "Dynamic AI Agents",
-  //         '<span class="highlight">Dynamic AI Agents</span>'
-  //       );
-  //     }
-  //     setTimeout(() => {
-  //       isErasing = true;
-  //       setTimeout(typeText, erasingSpeed);
-  //     }, delayBetweenPhrases);
-  //   } else if (isErasing && charIndex === 0) {
-  //     isErasing = false;
-  //     currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-  //     setTimeout(typeText, typingSpeed);
-  //   } else {
-  //     setTimeout(typeText, isErasing ? erasingSpeed : typingSpeed);
-  //   }
-  // }
-
   const dynamicPart = document.getElementById("dynamic-part");
 const dynamicEnd = document.getElementById("dynamic-end");
+
+// Typing Animation Variables
+let typingSpeed = 100; // Speed for typing
+let erasingSpeed = 50; // Speed for erasing
+
+// Function to type out text
+function typeText(element, text, callback) {
+  let charIndex = 0;
+  function type() {
+    if (charIndex < text.length) {
+      element.textContent += text[charIndex];
+      charIndex++;
+      setTimeout(type, typingSpeed);
+    } else if (callback) {
+      callback();
+    }
+  }
+  type();
+}
+
+// Function to erase text
+function eraseText(element, callback) {
+  let text = element.textContent;
+  let charIndex = text.length;
+  function erase() {
+    if (charIndex > 0) {
+      element.textContent = text.substring(0, charIndex - 1);
+      charIndex--;
+      setTimeout(erase, erasingSpeed);
+    } else if (callback) {
+      callback();
+    }
+  }
+  erase();
+}
 
 // Animation Sequence
 function runAnimation() {
@@ -89,22 +73,29 @@ function runAnimation() {
   dynamicPart.classList.add("selected");
 
   setTimeout(() => {
-    // Step 2: Replace "Growth" with "Business"
-    dynamicPart.textContent = "Business";
-    dynamicPart.classList.remove("selected");
+    // Step 2: Erase "Growth"
+    eraseText(dynamicPart, () => {
+      // Step 3: Type "Business"
+      dynamicPart.classList.remove("selected");
+      typeText(dynamicPart, "Business", () => {
+        setTimeout(() => {
+          // Step 4: Highlight "Intelligence"
+          dynamicEnd.classList.add("selected");
 
-    setTimeout(() => {
-      // Step 3: Highlight "Intelligence"
-      dynamicEnd.classList.add("selected");
-
-      setTimeout(() => {
-        // Step 4: Replace "Intelligence" with "Dynamic AI Agents" and add highlight
-        dynamicEnd.textContent = "Dynamic AI Agents";
-        dynamicEnd.classList.remove("selected");
-        dynamicEnd.classList.add("highlight");
-      }, 1500); // Duration of selection for "Intelligence"
-    }, 1500); // Duration for typing "Business"
-  }, 1500); // Duration of selection for "Growth"
+          setTimeout(() => {
+            // Step 5: Erase "Intelligence"
+            eraseText(dynamicEnd, () => {
+              // Step 6: Type and Highlight "Dynamic AI Agents"
+              dynamicEnd.classList.remove("selected");
+              typeText(dynamicEnd, "Dynamic AI Agents", () => {
+                dynamicEnd.classList.add("highlight");
+              });
+            });
+          }, 1500); // Duration of selection for "Intelligence"
+        }, 1500); // Pause after typing "Business"
+      });
+    });
+  }, 1500); // Pause after highlighting "Growth"
 }
 
 // Start Animation on Page Load
@@ -112,8 +103,4 @@ document.addEventListener("DOMContentLoaded", () => {
   runAnimation();
 });
 
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    typeText();
-  });
   

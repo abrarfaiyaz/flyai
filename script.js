@@ -14,9 +14,11 @@
     overlay.style.pointerEvents = 'auto'; // Enable interactions with overlay
   }
 
+
   // Typing Animation Variables
 let typingSpeed = 100; // Speed for typing
 let pauseBeforeTyping = 800; // Pause duration before typing
+let selectionPause = 300; // Pause duration after selection animation (0.3s)
 
 // Function to set active cursor
 function setActiveCursor(element) {
@@ -50,7 +52,9 @@ function selectText(element, callback) {
       setTimeout(animateSelection, 50); // Speed for selection animation
     } else {
       console.log(`Selection animation completed for: "${text}"`);
-      if (callback) callback();
+      setTimeout(() => {
+        if (callback) callback(); // Wait 0.3s before continuing
+      }, selectionPause);
     }
   }
   animateSelection();
@@ -149,7 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-  
 //   // Typing Animation Variables
 // let typingSpeed = 100; // Speed for typing
 // let pauseBeforeTyping = 800; // Pause duration before typing
@@ -158,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // function setActiveCursor(element) {
 //   // Remove cursor from all elements
 //   document.querySelectorAll("#dynamic-part, #dynamic-end").forEach((el) => {
-//     el.style.borderRight = "none";
+//     el.style.borderRight = "none"; // Ensure no cursor initially
 //   });
 //   // Add cursor to the active element
 //   if (element) {
@@ -263,8 +266,12 @@ document.addEventListener("DOMContentLoaded", () => {
 //   });
 // }
 
-// // Wait for Buttons Animation to Finish
+// // Ensure no cursors are visible initially
 // document.addEventListener("DOMContentLoaded", () => {
+//   document.querySelectorAll("#dynamic-part, #dynamic-end").forEach((el) => {
+//     el.style.borderRight = "none"; // Remove initial cursors
+//   });
+
 //   const lastButton = document.querySelector(".buttons a:nth-child(3)");
 
 //   // Fallback timer to ensure animation starts
@@ -281,4 +288,5 @@ document.addEventListener("DOMContentLoaded", () => {
 //   });
 // });
 
+  
 

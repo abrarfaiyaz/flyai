@@ -20,14 +20,22 @@ let pauseBeforeTyping = 800; // Pause duration before typing
 
 // Function to set active cursor
 function setActiveCursor(element) {
+  // Remove cursor from all elements
   document.querySelectorAll("#dynamic-part, #dynamic-end").forEach((el) => {
-    el.style.borderRight = "none"; // Remove cursor
+    el.style.borderRight = "none";
   });
-  element.style.borderRight = "2px solid #545455"; // Add cursor to active element
+  // Add cursor to the active element
+  if (element) {
+    element.style.borderRight = "2px solid #545455";
+  }
 }
 
 // Function to animate selection (from left to right)
 function selectText(element, callback) {
+  if (!element) {
+    console.error("Element not found for selection animation!");
+    return;
+  }
   setActiveCursor(element);
   const text = element.textContent;
   let charIndex = 0;
@@ -50,6 +58,10 @@ function selectText(element, callback) {
 
 // Function to erase the entire word
 function eraseWord(element, callback) {
+  if (!element) {
+    console.error("Element not found for erasing!");
+    return;
+  }
   setActiveCursor(element);
   console.log(`Erasing text for: "${element.textContent}"`);
   element.innerHTML = ""; // Erase content instantly
@@ -60,6 +72,10 @@ function eraseWord(element, callback) {
 
 // Function to type out text
 function typeText(element, text, callback) {
+  if (!element) {
+    console.error("Element not found for typing animation!");
+    return;
+  }
   setActiveCursor(element);
   let charIndex = 0;
   console.log(`Starting typing animation for: "${text}"`);
@@ -79,12 +95,26 @@ function typeText(element, text, callback) {
 // Animation Sequence
 function runAnimation() {
   console.log("Starting text animation sequence...");
+  const dynamicPart = document.getElementById("dynamic-part");
+  const dynamicEnd = document.getElementById("dynamic-end");
+
+  if (!dynamicPart || !dynamicEnd) {
+    console.error("dynamic-part or dynamic-end elements not found!");
+    return;
+  }
+
+  // Step 1: Animate selection of "Growth"
   selectText(dynamicPart, () => {
+    // Step 2: Erase the entire word "Growth"
     eraseWord(dynamicPart, () => {
+      // Step 3: Type "Business"
       typeText(dynamicPart, "Business", () => {
         setTimeout(() => {
+          // Step 4: Animate selection of "Intelligence"
           selectText(dynamicEnd, () => {
+            // Step 5: Erase the entire word "Intelligence"
             eraseWord(dynamicEnd, () => {
+              // Step 6: Type and Highlight "Dynamic AI Agents"
               typeText(dynamicEnd, "Dynamic AI Agents", () => {
                 dynamicEnd.classList.add("highlight");
                 console.log("Text animation completed for all parts!");

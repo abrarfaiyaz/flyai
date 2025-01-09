@@ -1,17 +1,4 @@
-// Handle button click functionality
-// function handleButtonClick(button) {
-//     const overlay = document.querySelector('.overlay');
-//     const container = document.querySelector('.container');
-//     const bubbleContainer = document.querySelector('.bubble-container');
-  
-//     container.classList.add('content-blur');
-//     overlay.style.opacity = '1';
-//     overlay.style.pointerEvents = 'auto';
-//     bubbleContainer.style.display = 'flex';
-  
-//     const overlayContent = document.querySelector('.overlay-content');
-//     overlayContent.style.opacity = '0';
-//   }
+
   function handleButtonClick(button) {
     const overlay = document.querySelector('.overlay');
     const container = document.querySelector('.container');
@@ -28,16 +15,21 @@
   }
   
   
-
-  const dynamicPart = document.getElementById("dynamic-part");
-const dynamicEnd = document.getElementById("dynamic-end");
-
 // Typing Animation Variables
 let typingSpeed = 100; // Speed for typing
 let pauseBeforeTyping = 800; // Pause duration before typing
 
+// Function to add a blinking cursor effect dynamically
+function setActiveCursor(element) {
+  document.querySelectorAll("#dynamic-part, #dynamic-end").forEach((el) => {
+    el.style.borderRight = "none"; // Remove cursor from all elements
+  });
+  element.style.borderRight = "2px solid #545455"; // Add cursor to the active element
+}
+
 // Function to animate selection (from left to right)
 function selectText(element, callback) {
+  setActiveCursor(element);
   const text = element.textContent;
   let charIndex = 0;
   function animateSelection() {
@@ -57,6 +49,7 @@ function selectText(element, callback) {
 
 // Function to erase the entire word
 function eraseWord(element, callback) {
+  setActiveCursor(element);
   element.innerHTML = ""; // Erase content instantly
   setTimeout(() => {
     if (callback) callback(); // Add a pause before calling the next step
@@ -65,6 +58,7 @@ function eraseWord(element, callback) {
 
 // Function to type out text
 function typeText(element, text, callback) {
+  setActiveCursor(element);
   let charIndex = 0;
   function type() {
     if (charIndex < text.length) {
@@ -103,19 +97,47 @@ function runAnimation() {
   });
 }
 
-// Start Animation on Page Load
+// Wait for Buttons Animation to Finish
 document.addEventListener("DOMContentLoaded", () => {
-  runAnimation();
+  const lastButton = document.querySelector(".buttons a:nth-child(3)");
+  lastButton.addEventListener("animationend", () => {
+    runAnimation(); // Start the dynamic part animation after buttons fly in
+  });
 });
-
-
 
 //   const dynamicPart = document.getElementById("dynamic-part");
 // const dynamicEnd = document.getElementById("dynamic-end");
 
 // // Typing Animation Variables
 // let typingSpeed = 100; // Speed for typing
-// let erasingSpeed = 50; // Speed for erasing
+// let pauseBeforeTyping = 800; // Pause duration before typing
+
+// // Function to animate selection (from left to right)
+// function selectText(element, callback) {
+//   const text = element.textContent;
+//   let charIndex = 0;
+//   function animateSelection() {
+//     element.innerHTML = `<span class="selected">${text.substring(
+//       0,
+//       charIndex + 1
+//     )}</span>${text.substring(charIndex + 1)}`;
+//     charIndex++;
+//     if (charIndex < text.length) {
+//       setTimeout(animateSelection, 50); // Speed for selection animation
+//     } else if (callback) {
+//       callback();
+//     }
+//   }
+//   animateSelection();
+// }
+
+// // Function to erase the entire word
+// function eraseWord(element, callback) {
+//   element.innerHTML = ""; // Erase content instantly
+//   setTimeout(() => {
+//     if (callback) callback(); // Add a pause before calling the next step
+//   }, pauseBeforeTyping);
+// }
 
 // // Function to type out text
 // function typeText(element, text, callback) {
@@ -132,51 +154,29 @@ document.addEventListener("DOMContentLoaded", () => {
 //   type();
 // }
 
-// // Function to erase text
-// function eraseText(element, callback) {
-//   let text = element.textContent;
-//   let charIndex = text.length;
-//   function erase() {
-//     if (charIndex > 0) {
-//       element.textContent = text.substring(0, charIndex - 1);
-//       charIndex--;
-//       setTimeout(erase, erasingSpeed);
-//     } else if (callback) {
-//       callback();
-//     }
-//   }
-//   erase();
-// }
-
 // // Animation Sequence
 // function runAnimation() {
-//   // Step 1: Highlight "Growth"
-//   dynamicPart.classList.add("selected");
-
-//   setTimeout(() => {
-//     // Step 2: Erase "Growth"
-//     eraseText(dynamicPart, () => {
+//   // Step 1: Animate selection of "Growth"
+//   selectText(dynamicPart, () => {
+//     // Step 2: Erase the entire word "Growth"
+//     eraseWord(dynamicPart, () => {
 //       // Step 3: Type "Business"
-//       dynamicPart.classList.remove("selected");
 //       typeText(dynamicPart, "Business", () => {
 //         setTimeout(() => {
-//           // Step 4: Highlight "Intelligence"
-//           dynamicEnd.classList.add("selected");
-
-//           setTimeout(() => {
-//             // Step 5: Erase "Intelligence"
-//             eraseText(dynamicEnd, () => {
+//           // Step 4: Animate selection of "Intelligence"
+//           selectText(dynamicEnd, () => {
+//             // Step 5: Erase the entire word "Intelligence"
+//             eraseWord(dynamicEnd, () => {
 //               // Step 6: Type and Highlight "Dynamic AI Agents"
-//               dynamicEnd.classList.remove("selected");
 //               typeText(dynamicEnd, "Dynamic AI Agents", () => {
 //                 dynamicEnd.classList.add("highlight");
 //               });
 //             });
-//           }, 1500); // Duration of selection for "Intelligence"
-//         }, 1500); // Pause after typing "Business"
+//           });
+//         }, 1000); // Pause after typing "Business"
 //       });
 //     });
-//   }, 1500); // Pause after highlighting "Growth"
+//   });
 // }
 
 // // Start Animation on Page Load
@@ -184,4 +184,3 @@ document.addEventListener("DOMContentLoaded", () => {
 //   runAnimation();
 // });
 
-  

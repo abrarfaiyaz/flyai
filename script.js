@@ -47,38 +47,71 @@
   const erasingSpeed = 50; // Erasing speed in milliseconds
   const delayBetweenPhrases = 1500; // Delay before switching phrases
   
-  function typeText() {
-    const fullText = phrases[currentPhraseIndex];
-    const highlight = currentPhraseIndex === 4; // Highlight "Dynamic AI Agents"
+  // function typeText() {
+  //   const fullText = phrases[currentPhraseIndex];
+  //   const highlight = currentPhraseIndex === 4; // Highlight "Dynamic AI Agents"
   
-    if (isErasing) {
-      charIndex--;
-      textElement.innerHTML = fullText.substring(0, charIndex);
-    } else {
-      charIndex++;
-      textElement.innerHTML = fullText.substring(0, charIndex);
-    }
+  //   if (isErasing) {
+  //     charIndex--;
+  //     textElement.innerHTML = fullText.substring(0, charIndex);
+  //   } else {
+  //     charIndex++;
+  //     textElement.innerHTML = fullText.substring(0, charIndex);
+  //   }
   
-    if (!isErasing && charIndex === fullText.length) {
-      if (highlight) {
-        // Add highlight for "Dynamic AI Agents"
-        textElement.innerHTML = fullText.replace(
-          "Dynamic AI Agents",
-          '<span class="highlight">Dynamic AI Agents</span>'
-        );
-      }
+  //   if (!isErasing && charIndex === fullText.length) {
+  //     if (highlight) {
+  //       // Add highlight for "Dynamic AI Agents"
+  //       textElement.innerHTML = fullText.replace(
+  //         "Dynamic AI Agents",
+  //         '<span class="highlight">Dynamic AI Agents</span>'
+  //       );
+  //     }
+  //     setTimeout(() => {
+  //       isErasing = true;
+  //       setTimeout(typeText, erasingSpeed);
+  //     }, delayBetweenPhrases);
+  //   } else if (isErasing && charIndex === 0) {
+  //     isErasing = false;
+  //     currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+  //     setTimeout(typeText, typingSpeed);
+  //   } else {
+  //     setTimeout(typeText, isErasing ? erasingSpeed : typingSpeed);
+  //   }
+  // }
+
+  const dynamicPart = document.getElementById("dynamic-part");
+const dynamicEnd = document.getElementById("dynamic-end");
+
+// Animation Sequence
+function runAnimation() {
+  // Step 1: Highlight "Growth"
+  dynamicPart.classList.add("selected");
+
+  setTimeout(() => {
+    // Step 2: Replace "Growth" with "Business"
+    dynamicPart.textContent = "Business";
+    dynamicPart.classList.remove("selected");
+
+    setTimeout(() => {
+      // Step 3: Highlight "Intelligence"
+      dynamicEnd.classList.add("selected");
+
       setTimeout(() => {
-        isErasing = true;
-        setTimeout(typeText, erasingSpeed);
-      }, delayBetweenPhrases);
-    } else if (isErasing && charIndex === 0) {
-      isErasing = false;
-      currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-      setTimeout(typeText, typingSpeed);
-    } else {
-      setTimeout(typeText, isErasing ? erasingSpeed : typingSpeed);
-    }
-  }
+        // Step 4: Replace "Intelligence" with "Dynamic AI Agents" and add highlight
+        dynamicEnd.textContent = "Dynamic AI Agents";
+        dynamicEnd.classList.remove("selected");
+        dynamicEnd.classList.add("highlight");
+      }, 1500); // Duration of selection for "Intelligence"
+    }, 1500); // Duration for typing "Business"
+  }, 1500); // Duration of selection for "Growth"
+}
+
+// Start Animation on Page Load
+document.addEventListener("DOMContentLoaded", () => {
+  runAnimation();
+});
+
   
   document.addEventListener("DOMContentLoaded", () => {
     typeText();

@@ -18,7 +18,7 @@
   // Typing Animation Variables
 let typingSpeed = 100; // Speed for typing
 let pauseBeforeTyping = 800; // Pause duration before typing
-let selectionPause = 300; // Pause duration after selection animation (0.3s)
+let selectionPause = 500; // Pause duration after selection animation (0.3s)
 
 // Function to set active cursor
 function setActiveCursor(element) {

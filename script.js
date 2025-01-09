@@ -30,15 +30,15 @@
 
 
   
-  // Dynamic Typing Animation
   const phrases = [
-    { replace: "Growth", with: "Business" },
-    { replace: "Intelligence", with: "Dynamic AI Agents" },
+    "Empowering Growth with Intelligence",
+    "Empowering with Intelligence",
+    "Empowering Business with Intelligence",
+    "Empowering Business with",
+    "Empowering Business with Dynamic AI Agents",
   ];
   
-  const baseString = "Empowering "; // Base text
   const textElement = document.getElementById("dynamic-text");
-  
   let currentPhraseIndex = 0;
   let charIndex = 0;
   let isErasing = false;
@@ -48,25 +48,30 @@
   const delayBetweenPhrases = 1500; // Delay before switching phrases
   
   function typeText() {
-    const { replace, with: replacement } = phrases[currentPhraseIndex];
-    const fullText = isErasing
-      ? baseString + replace
-      : baseString + replacement;
-  
-    textElement.textContent = fullText.substring(0, charIndex);
+    const fullText = phrases[currentPhraseIndex];
+    const highlight = currentPhraseIndex === 4; // Highlight "Dynamic AI Agents"
   
     if (isErasing) {
       charIndex--;
+      textElement.innerHTML = fullText.substring(0, charIndex);
     } else {
       charIndex++;
+      textElement.innerHTML = fullText.substring(0, charIndex);
     }
   
-    if (!isErasing && charIndex === baseString.length + replacement.length) {
+    if (!isErasing && charIndex === fullText.length) {
+      if (highlight) {
+        // Add highlight for "Dynamic AI Agents"
+        textElement.innerHTML = fullText.replace(
+          "Dynamic AI Agents",
+          '<span class="highlight">Dynamic AI Agents</span>'
+        );
+      }
       setTimeout(() => {
         isErasing = true;
         setTimeout(typeText, erasingSpeed);
       }, delayBetweenPhrases);
-    } else if (isErasing && charIndex === baseString.length) {
+    } else if (isErasing && charIndex === 0) {
       isErasing = false;
       currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
       setTimeout(typeText, typingSpeed);
@@ -75,7 +80,6 @@
     }
   }
   
-  // Initialize the typing animation
   document.addEventListener("DOMContentLoaded", () => {
     typeText();
   });

@@ -1,17 +1,34 @@
 // Handle button click functionality
-function handleButtonClick(button) {
+// function handleButtonClick(button) {
+//     const overlay = document.querySelector('.overlay');
+//     const container = document.querySelector('.container');
+//     const bubbleContainer = document.querySelector('.bubble-container');
+  
+//     container.classList.add('content-blur');
+//     overlay.style.opacity = '1';
+//     overlay.style.pointerEvents = 'auto';
+//     bubbleContainer.style.display = 'flex';
+  
+//     const overlayContent = document.querySelector('.overlay-content');
+//     overlayContent.style.opacity = '0';
+//   }
+  function handleButtonClick(button) {
     const overlay = document.querySelector('.overlay');
     const container = document.querySelector('.container');
     const bubbleContainer = document.querySelector('.bubble-container');
   
-    container.classList.add('content-blur');
-    overlay.style.opacity = '1';
-    overlay.style.pointerEvents = 'auto';
-    bubbleContainer.style.display = 'flex';
+    if (button.textContent.trim() === "About") {
+      // Show bubbles for "About"
+      bubbleContainer.style.display = 'flex';
+    }
   
-    const overlayContent = document.querySelector('.overlay-content');
-    overlayContent.style.opacity = '0';
+    container.classList.add('content-blur'); // Blur the main content
+    overlay.style.opacity = '1'; // Show overlay
+    overlay.style.pointerEvents = 'auto'; // Enable interactions with overlay
   }
+  
+
+
   
   // Dynamic Typing Animation
   const phrases = [

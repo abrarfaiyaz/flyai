@@ -13,7 +13,7 @@
     overlay.style.opacity = '1'; // Show overlay
     overlay.style.pointerEvents = 'auto'; // Enable interactions with overlay
   }
-  
+
   // Typing Animation Variables
 let typingSpeed = 100; // Speed for typing
 let pauseBeforeTyping = 800; // Pause duration before typing
@@ -22,7 +22,7 @@ let pauseBeforeTyping = 800; // Pause duration before typing
 function setActiveCursor(element) {
   // Remove cursor from all elements
   document.querySelectorAll("#dynamic-part, #dynamic-end").forEach((el) => {
-    el.style.borderRight = "none";
+    el.style.borderRight = "none"; // Ensure no cursor initially
   });
   // Add cursor to the active element
   if (element) {
@@ -127,8 +127,12 @@ function runAnimation() {
   });
 }
 
-// Wait for Buttons Animation to Finish
+// Ensure no cursors are visible initially
 document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("#dynamic-part, #dynamic-end").forEach((el) => {
+    el.style.borderRight = "none"; // Remove initial cursors
+  });
+
   const lastButton = document.querySelector(".buttons a:nth-child(3)");
 
   // Fallback timer to ensure animation starts
@@ -145,19 +149,33 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
-
-//   const dynamicPart = document.getElementById("dynamic-part");
-// const dynamicEnd = document.getElementById("dynamic-end");
-
-// // Typing Animation Variables
+  
+//   // Typing Animation Variables
 // let typingSpeed = 100; // Speed for typing
 // let pauseBeforeTyping = 800; // Pause duration before typing
 
+// // Function to set active cursor
+// function setActiveCursor(element) {
+//   // Remove cursor from all elements
+//   document.querySelectorAll("#dynamic-part, #dynamic-end").forEach((el) => {
+//     el.style.borderRight = "none";
+//   });
+//   // Add cursor to the active element
+//   if (element) {
+//     element.style.borderRight = "2px solid #545455";
+//   }
+// }
+
 // // Function to animate selection (from left to right)
 // function selectText(element, callback) {
+//   if (!element) {
+//     console.error("Element not found for selection animation!");
+//     return;
+//   }
+//   setActiveCursor(element);
 //   const text = element.textContent;
 //   let charIndex = 0;
+//   console.log(`Starting selection animation for: "${text}"`);
 //   function animateSelection() {
 //     element.innerHTML = `<span class="selected">${text.substring(
 //       0,
@@ -166,8 +184,9 @@ document.addEventListener("DOMContentLoaded", () => {
 //     charIndex++;
 //     if (charIndex < text.length) {
 //       setTimeout(animateSelection, 50); // Speed for selection animation
-//     } else if (callback) {
-//       callback();
+//     } else {
+//       console.log(`Selection animation completed for: "${text}"`);
+//       if (callback) callback();
 //     }
 //   }
 //   animateSelection();
@@ -175,6 +194,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // // Function to erase the entire word
 // function eraseWord(element, callback) {
+//   if (!element) {
+//     console.error("Element not found for erasing!");
+//     return;
+//   }
+//   setActiveCursor(element);
+//   console.log(`Erasing text for: "${element.textContent}"`);
 //   element.innerHTML = ""; // Erase content instantly
 //   setTimeout(() => {
 //     if (callback) callback(); // Add a pause before calling the next step
@@ -183,14 +208,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // // Function to type out text
 // function typeText(element, text, callback) {
+//   if (!element) {
+//     console.error("Element not found for typing animation!");
+//     return;
+//   }
+//   setActiveCursor(element);
 //   let charIndex = 0;
+//   console.log(`Starting typing animation for: "${text}"`);
 //   function type() {
 //     if (charIndex < text.length) {
 //       element.textContent += text[charIndex];
 //       charIndex++;
 //       setTimeout(type, typingSpeed);
-//     } else if (callback) {
-//       callback();
+//     } else {
+//       console.log(`Typing animation completed for: "${text}"`);
+//       if (callback) callback();
 //     }
 //   }
 //   type();
@@ -198,6 +230,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // // Animation Sequence
 // function runAnimation() {
+//   console.log("Starting text animation sequence...");
+//   const dynamicPart = document.getElementById("dynamic-part");
+//   const dynamicEnd = document.getElementById("dynamic-end");
+
+//   if (!dynamicPart || !dynamicEnd) {
+//     console.error("dynamic-part or dynamic-end elements not found!");
+//     return;
+//   }
+
 //   // Step 1: Animate selection of "Growth"
 //   selectText(dynamicPart, () => {
 //     // Step 2: Erase the entire word "Growth"
@@ -212,6 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //               // Step 6: Type and Highlight "Dynamic AI Agents"
 //               typeText(dynamicEnd, "Dynamic AI Agents", () => {
 //                 dynamicEnd.classList.add("highlight");
+//                 console.log("Text animation completed for all parts!");
 //               });
 //             });
 //           });
@@ -221,8 +263,22 @@ document.addEventListener("DOMContentLoaded", () => {
 //   });
 // }
 
-// // Start Animation on Page Load
+// // Wait for Buttons Animation to Finish
 // document.addEventListener("DOMContentLoaded", () => {
-//   runAnimation();
+//   const lastButton = document.querySelector(".buttons a:nth-child(3)");
+
+//   // Fallback timer to ensure animation starts
+//   const fallbackTimer = setTimeout(() => {
+//     console.log("Fallback timer triggered.");
+//     runAnimation();
+//   }, 2000); // Adjust delay to match button animation duration
+
+//   // Trigger animation when the last button finishes flying in
+//   lastButton.addEventListener("animationend", () => {
+//     clearTimeout(fallbackTimer); // Cancel fallback
+//     console.log("Button animation ended.");
+//     runAnimation(); // Start text animation
+//   });
 // });
+
 

@@ -96,6 +96,11 @@ function typeText(element, text, callback) {
   type();
 }
 
+function addHighlightAnimation(element) {
+  element.classList.remove("highlight"); // Remove the class if already present
+  void element.offsetWidth; // Trigger a reflow to reset the animation
+  element.classList.add("highlight"); // Re-add the class to start the animation
+}
 // Animation Sequence
 function runAnimation() {
   console.log("Starting text animation sequence...");
@@ -120,7 +125,8 @@ function runAnimation() {
             eraseWord(dynamicEnd, () => {
               // Step 6: Type and Highlight "Dynamic AI Agents"
               typeText(dynamicEnd, "Dynamic AI Agents", () => {
-                dynamicEnd.classList.add("highlight");
+                // dynamicEnd.classList.add("highlight");
+                addHighlightAnimation(dynamicEnd);
                 console.log("Text animation completed for all parts!");
               });
             });

@@ -75,7 +75,7 @@
     background: #545455;
     color: #ffffff;
     text-decoration: none;
-    border-radius: 2rem;
+    /* border-radius: 2rem; */
     font-weight: bold;
     opacity: 0; /* Start hidden */
     /* transform: translateY(20px); Start slightly below */

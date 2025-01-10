@@ -103,7 +103,7 @@ function typeText(element, text, callback) {
 // }
 
 function triggerShineAnimation(element) {
-  element.style.animation = "shine 1.5s infinite";
+  element.style.animation = "glow 1.5s infinite";
 }
 
 // Animation Sequence

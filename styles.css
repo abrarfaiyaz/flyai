@@ -197,20 +197,20 @@
   margin: 1rem 0;
 }
 
-#dynamic-part {
+#dynamic-part,  #dynamic-end {
   display: inline;
   font-weight: bold;
   border-right: 2px solid #545455; /* Blinking cursor effect */
   animation: blink 0.6s step-end infinite;
 }
 
-#dynamic-end {
+/* #dynamic-end {
   display: inline;
   font-weight: bold;
   font-size:2.2rem;
   border-left: 2px solid #545455; 
   animation: blink 0.6s step-end infinite;
-}
+} */
 /* Blink Animation for Cursor */
 @keyframes blink {
   50% {

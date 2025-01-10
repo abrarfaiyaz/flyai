@@ -142,9 +142,9 @@ function runAnimation() {
   });
 }
 
-dynamicEnd.addEventListener("animationstart", () => {
-  console.log("Highlight animation started!");
-});
+// dynamicEnd.addEventListener("animationstart", () => {
+//   console.log("Highlight animation started!");
+// });
 
 // Ensure no cursors are visible initially
 document.addEventListener("DOMContentLoaded", () => {

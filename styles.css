@@ -100,10 +100,10 @@
     background: #545455;
     color: #ffffff;
     text-decoration: none;
-    /* border-radius: 2rem; */
+    border-radius: 2rem;
     font-weight: bold;
     opacity: 0; /* Start hidden */
-    /* transform: translateY(20px); Start slightly below */
+    transform: translateY(20px); /* Start slightly below */
     animation: buttonFlyIn 0.5s ease-out forwards;
     transition: transform 0.2s ease, background 0.2s ease;
   }
@@ -212,6 +212,7 @@
   .highlight {
     background: linear-gradient(to right, #ff9a9e, #fad0c4);
     -webkit-background-clip: text;
+    background-clip: content-box;
     -webkit-text-fill-color: transparent;
     animation: shine 1.5s infinite;
   }

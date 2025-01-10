@@ -65,7 +65,9 @@
     transform: scale(1.2);
   }
   
-
+.buttons {
+  overflow: visible;
+}
   .buttons a {
     display: inline-block;
     margin: 0 0.5rem;

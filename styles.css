@@ -212,7 +212,7 @@
   .highlight {
     background: linear-gradient(to right, #ff9a9e, #fad0c4);
     -webkit-background-clip: text;
-    background-clip: content-box;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: shine 1.5s infinite;
   }

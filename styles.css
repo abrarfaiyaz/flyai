@@ -164,6 +164,15 @@
       text-shadow: 0 0 15px #ff9a9e;
     }
   }
+
+  @keyframes glow {
+    0%, 100% {
+      text-shadow: 0 0 5px #92fe9d, 0 0 15px #00c9ff, 0 0 20px #92fe9d;
+    }
+    50% {
+      text-shadow: 0 0 10px #00c9ff, 0 0 30px #92fe9d, 0 0 40px #00c9ff;
+    }
+  }
   
   /* Social Links Styling */
   /* .social-links a {
@@ -209,10 +218,18 @@
 
 
   /* Highlight for "Dynamic AI Agents" */
-  .highlight {
+  /* .highlight {
     background: linear-gradient(to right, #ff9a9e, #fad0c4);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: shine 1.5s infinite;
+  } */
+
+  .highlight {
+    background: linear-gradient(90deg, #00c9ff, #92fe9d);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 1.5s infinite;
   }

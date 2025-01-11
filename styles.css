@@ -264,7 +264,7 @@
   }
 
   .container {
-    padding: 1rem;
+    padding: -1rem;
     transform: none;
     filter: none;
     opacity: 1;

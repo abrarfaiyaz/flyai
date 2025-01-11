@@ -109,6 +109,7 @@ function typeText(element, text, callback) {
 
 function triggerShineAnimation(element) {
   element.style.animation = "shine 1.5s infinite";
+  element.style.borderRight="none";
 }
 
 

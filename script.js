@@ -102,8 +102,13 @@ function typeText(element, text, callback) {
 //   element.classList.add("highlight"); // Re-add the class to start the animation
 // }
 
+// function triggerShineAnimation(element) {
+//   element.style.animation = "glow 1.5s infinite";
+// }
+
+
 function triggerShineAnimation(element) {
-  element.style.animation = "glow 1.5s infinite";
+  element.style.animation = "shine 1.5s infinite";
 }
 
 // Animation Sequence

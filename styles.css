@@ -251,3 +251,75 @@
     animation: glow 1.5s infinite;
     -webkit-animation: glow 1.5s infinite;
   } */
+
+
+  /* Add Responsive Styling for Mobile */
+@media (max-width: 768px) {
+  body {
+    display: block;
+    text-align: center;
+    height: auto;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+
+  .container {
+    padding: 1rem;
+    transform: none;
+    filter: none;
+    opacity: 1;
+  }
+
+  .header img {
+    max-height: 6rem;
+    margin: 0 auto;
+  }
+
+  .content h2 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .content p {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .social-links a {
+    font-size: 1.5rem;
+    margin: 0 0.25rem;
+  }
+
+  .buttons a {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    margin: 0.5rem auto;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #tagline {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  #dynamic-end {
+    font-size: 1.75rem;
+  }
+
+  .overlay {
+    opacity: 1;
+    pointer-events: auto;
+    position: fixed;
+  }
+
+  .overlay-content {
+    font-size: 1rem;
+    opacity: 1;
+  }
+}

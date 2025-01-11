@@ -264,15 +264,10 @@
   }
 
   .container {
-    padding: 1rem;
+    padding: -1rem;
     transform: none;
     filter: none;
     opacity: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Center the content vertically */
   }
 
   .header img {
@@ -317,14 +312,14 @@
     font-size: 1.75rem;
   }
 
-  /* .overlay {
-    opacity: 1;
-    pointer-events: auto;
+.overlay {
+    /* opacity: 1; */
+    /* pointer-events: auto; */
     position: fixed;
   }
 
-  .overlay-content {
+  /* .overlay-content {
     font-size: 1rem;
     opacity: 1;
-  } */
+  }  */
 }

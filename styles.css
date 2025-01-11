@@ -277,7 +277,7 @@
     /* flex-direction: column; */
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Center the content vertically */
+    height: 5vh; /* Center the content vertically */
   }
 
   .header img {

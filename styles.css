@@ -206,8 +206,9 @@
 }
 
 #dynamic-end {
-  font-family: 'American Typewriter', serif ;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 2.5rem;
+  font-weight: 200;
 }
 /* #dynamic-end {
   display: inline;

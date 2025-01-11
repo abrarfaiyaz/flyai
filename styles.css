@@ -264,10 +264,15 @@
   }
 
   .container {
-    padding: -1rem;
+    padding: 1rem;
     transform: none;
     filter: none;
     opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Center the content vertically */
   }
 
   .header img {

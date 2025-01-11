@@ -138,6 +138,7 @@ function runAnimation() {
               // Step 6: Type and Highlight "Dynamic AI Agents"
               typeText(dynamicEnd, "AI Agents", () => {
                 dynamicEnd.classList.add("highlight");
+                dynamicEnd.classList.add("selected");
                 triggerShineAnimation(dynamicEnd);
                 console.log("Text animation completed for all parts!");
               });

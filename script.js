@@ -134,7 +134,7 @@ function runAnimation() {
             // Step 5: Erase the entire word "Intelligence"
             eraseWord(dynamicEnd, () => {
               // Step 6: Type and Highlight "Dynamic AI Agents"
-              typeText(dynamicEnd, "AI Agents🤖", () => {
+              typeText(dynamicEnd, "🤖AI Agents", () => {
                 dynamicEnd.classList.add("highlight");
                 triggerShineAnimation(dynamicEnd);
                 console.log("Text animation completed for all parts!");

@@ -111,6 +111,7 @@ function triggerShineAnimation(element) {
   element.style.animation = "shine 1.5s infinite";
 }
 
+
 // Animation Sequence
 function runAnimation() {
   console.log("Starting text animation sequence...");
@@ -134,7 +135,7 @@ function runAnimation() {
             // Step 5: Erase the entire word "Intelligence"
             eraseWord(dynamicEnd, () => {
               // Step 6: Type and Highlight "Dynamic AI Agents"
-              typeText(dynamicEnd, "🤖AI Agents", () => {
+              typeText(dynamicEnd, "AI Agents", () => {
                 dynamicEnd.classList.add("highlight");
                 triggerShineAnimation(dynamicEnd);
                 console.log("Text animation completed for all parts!");

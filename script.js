@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.querySelector(".overlay");
+  const container = document.querySelector(".container");
+
+  // Ensure the overlay is visible and the content is blurred
+  container.classList.add("content-blur");
+  overlay.style.opacity = "1";
+  overlay.style.pointerEvents = "auto";
+});
+
 
   function handleButtonClick(button) {
     const overlay = document.querySelector('.overlay');

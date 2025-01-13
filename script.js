@@ -1,12 +1,38 @@
 document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.querySelector(".overlay");
   const container = document.querySelector(".container");
+  const buttons = document.querySelectorAll(".buttons a"); // Select all buttons
 
-  // Ensure the overlay is visible and the content is blurred
-  container.classList.add("content-blur");
-  overlay.style.opacity = "1";
-  overlay.style.pointerEvents = "auto";
+  // Add click event listener to each button
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // Show overlay and blur content
+      container.classList.add("content-blur");
+      overlay.style.opacity = "1";
+      overlay.style.pointerEvents = "auto";
+    });
+  });
+
+  // Hide overlay and remove blur when overlay is clicked
+  overlay.addEventListener("click", () => {
+    hideOverlay();
+  });
+
+  // Hide overlay and remove blur when Escape key is pressed
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      hideOverlay();
+    }
+  });
+
+  // Function to hide overlay and remove blur
+  function hideOverlay() {
+    container.classList.remove("content-blur");
+    overlay.style.opacity = "0";
+    overlay.style.pointerEvents = "none";
+  }
 });
+
 
 
   function handleButtonClick(button) {

@@ -1,17 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const overlay = document.querySelector(".overlay");
-  const container = document.querySelector(".container");
-  const buttons = document.querySelectorAll(".buttons a"); // Select all buttons
 
-  // Add click event listener to each button
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      // Show overlay and blur content
-      container.classList.add("content-blur");
-      overlay.style.opacity = "1";
-      overlay.style.pointerEvents = "auto";
-    });
-  });
 
   // Hide overlay and remove blur when overlay is clicked
   overlay.addEventListener("click", () => {
@@ -210,6 +197,20 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Button animation ended.");
     runAnimation(); // Start text animation
   });
+
+
+    const overlay = document.querySelector(".overlay");
+  const container = document.querySelector(".container");
+  const buttons = document.querySelectorAll(".buttons a"); // Select all buttons
+
+  // Add click event listener to each button
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // Show overlay and blur content
+      container.classList.add("content-blur");
+      overlay.style.opacity = "1";
+      overlay.style.pointerEvents = "auto";
+    });
 });
 
 //   // Typing Animation Variables

@@ -53,15 +53,46 @@
         font-size: 1.5rem;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
+        width: 80%;
+        max-width: 800px;
     }
-    
+
+    .overlay-content.show {
+        opacity: 1;
+        animation: slideIn 0.5s ease-out forwards;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translate(-50%, -60%);
+            opacity: 0;
+        }
+        to {
+            transform: translate(-50%, -50%);
+            opacity: 1;
+        }
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: #fff;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .close-btn:hover {
+        transform: scale(1.2);
+    }
+
     /* Main Container Styling */
     .container {
         animation: fadeIn 1.5s ease-in-out;
         position: relative;
         z-index: 1;
         transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s;
-        padding-top: -20rem;
     }
 
     .container.content-blur {
@@ -119,66 +150,65 @@
     .buttons a:hover {
         background: #ff9a9e;
         transform: scale(1.3);
-        box-shadow: #333;
+        box-shadow: 0 0 10px rgba(51, 51, 51, 0.5);
     }
 
-    .buttons a:nth-child(1) {
-        animation-delay: 0s;
-    }
+    .buttons a:nth-child(1) { animation-delay: 0s; }
+    .buttons a:nth-child(2) { animation-delay: 0.5s; }
+    .buttons a:nth-child(3) { animation-delay: 1s; }
     
-    .buttons a:nth-child(2) {
-        animation-delay: 0.5s;
-    }
-    
-    .buttons a:nth-child(3) {
-        animation-delay: 1s;
-    }
-    
-    /* Fly-in animation */
     @keyframes buttonFlyIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
-    /* For the About section */
-    .bubble-container {
+    /* About and Services Styling */
+    .about-content, .services-content {
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        backdrop-filter: blur(5px);
+    }
+
+    .about-content h3, .services-content h3 {
+        font-family: "Hind Madurai", sans-serif;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #ff9a9e;
+    }
+
+    .about-content p, .services-content p {
+        font-family: "Tenor Sans", sans-serif;
+        font-size: 1.2rem;
+        line-height: 1.5;
+    }
+
+    .services-list {
+        list-style: none;
+        margin-top: 1rem;
+        text-align: left;
+    }
+
+    .services-list li {
+        margin: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+        animation: fadeInUp 0.5s ease-out forwards;
+    }
+
+    .services-list li:before {
+        content: "•";
+        color: #ff9a9e;
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 2rem;
-        width: 80%;
-        max-width: 800px;
-        z-index: 3;
-    }
-    
-    @keyframes shine {
-        0%, 100% {
-            text-shadow: 0 0 5px #fad0c4;
-        }
-        50% {
-            text-shadow: 0 0 15px #ff9a9e;
-        }
+        left: 0;
+        font-size: 1.5rem;
     }
 
-    @keyframes glow {
-        0%, 100% {
-            text-shadow: 0 0 5px #92fe9d, 0 0 15px #00c9ff, 0 0 20px #92fe9d;
-        }
-        50% {
-            text-shadow: 0 0 10px #00c9ff, 0 0 30px #92fe9d, 0 0 40px #00c9ff;
-        }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
-    
+
     /* Tagline Styling */
     #tagline {
         font-family: "Tenor Sans", sans-serif;
@@ -201,20 +231,15 @@
         font-weight: 200;
     }
     
-    /* Blink Animation for Cursor */
     @keyframes blink {
-        50% {
-            border-color: transparent;
-        }
+        50% { border-color: transparent; }
     }
     
-    /* Highlight for Selection */
     .selected {
         background-color: #333;
         color: #fff;
     }
 
-    /* Highlight for "Dynamic AI Agents" */
     .highlight {
         background: linear-gradient(to right, #ff9a9e, #fad0c4);
         -webkit-background-clip: text;
@@ -223,11 +248,15 @@
         animation: shine 1.5s infinite;
     }
 
-    /* Add Responsive Styling for Mobile */
+    @keyframes shine {
+        0%, 100% { text-shadow: 0 0 5px #fad0c4; }
+        50% { text-shadow: 0 0 15px #ff9a9e; }
+    }
+
+    /* Responsive Styling */
     @media (max-width: 768px) {
         body {
             display: block;
-            text-align: center;
             height: auto;
             overflow-y: auto;
             padding: 1rem;
@@ -238,62 +267,43 @@
             padding-top: 5rem;
             transform: none;
             filter: none;
-            justify-content: center;
-            align-items: center;
             height: 5vh;
         }
 
-        .header img {
-            max-height: 6rem;
-            margin: 0 auto;
-        }
-
-        .content h2 {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .content p {
-            font-size: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .social-links a {
-            font-size: 1.5rem;
-            margin: 0 0.25rem;
-        }
-
-        .buttons a {
-            padding: 0.5rem 1rem;
-            font-size: 0.875rem;
-            margin: 0.5rem auto;
-        }
-
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #tagline {
-            font-size: 1.5rem;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-
-        #dynamic-end {
-            font-size: 1.75rem;
-        }
-
-        .overlay {
-            position: fixed;
-        }
+        .header img { max-height: 6rem; }
+        .content h2 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .content p { font-size: 1.5rem; line-height: 1.2; }
+        .social-links a { font-size: 1.5rem; margin: 0 0.25rem; }
+        .buttons a { padding: 0.5rem 1rem; font-size: 0.875rem; margin: 0.5rem auto; }
+        .buttons { display: flex; flex-direction: column; align-items: center; }
+        #tagline { font-size: 1.5rem; line-height: 1.2; margin-bottom: 1rem; }
+        #dynamic-end { font-size: 1.75rem; }
+        .overlay { position: fixed; }
+        .overlay-content { font-size: 1rem; }
+        .about-content h3, .services-content h3 { font-size: 1.5rem; }
+        .about-content p, .services-content p { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
   <div class="overlay">
-    <div class="overlay-content"></div>
+    <div class="overlay-content" id="overlay-content">
+      <span class="close-btn" onclick="closeOverlay()">×</span>
+      <div class="about-content" id="about-page" style="display: none;">
+        <h3>About FLY AI</h3>
+        <p>At FLY AI, our vision is to lead the global AI revolution, empowering businesses to achieve their full potential with intelligent, data-driven insights. Founded with a passion for innovation, we are committed to transforming industries by harnessing the power of artificial intelligence. Our team of experts works tirelessly to deliver cutting-edge solutions that drive growth, efficiency, and success for our clients worldwide.</p>
+      </div>
+      <div class="services-content" id="services-page" style="display: none;">
+        <h3>Our Services</h3>
+        <p>We provide tailored AI solutions to propel your business forward, aligning with our vision of unlocking potential through intelligence and data.</p>
+        <ul class="services-list">
+          <li style="animation-delay: 0.1s;">AI Strategy Consulting - Craft a roadmap for AI integration.</li>
+          <li style="animation-delay: 0.2s;">Custom AI Development - Build intelligent systems for your unique needs.</li>
+          <li style="animation-delay: 0.3s;">Data Analytics & Insights - Turn data into actionable decisions.</li>
+          <li style="animation-delay: 0.4s;">AI Automation - Streamline operations with smart workflows.</li>
+        </ul>
+      </div>
+    </div>
   </div>
   <div class="container">
     <header class="header">
@@ -310,33 +320,46 @@
         <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
       </div>
       <div class="buttons">
-        <a href="#" onclick="handleButtonClick(this)">About</a>
-        <a href="#" onclick="">Services</a>
-        <a href="mailto:contact@flyai.online" onclick="handleButtonClick(this)">Contact</a>
+        <a href="#" onclick="showPage('about')">About</a>
+        <a href="#" onclick="showPage('services')">Services</a>
+        <a href="mailto:contact@flyai.online">Contact</a>
       </div>
     </main>
   </div>
   <script>
-    function handleButtonClick(button) {
+    function showPage(page) {
       const overlay = document.querySelector('.overlay');
       const container = document.querySelector('.container');
-      const bubbleContainer = document.querySelector('.bubble-container');
-    
-      if (button.textContent.trim() === "About") {
-        bubbleContainer.style.display = 'flex';
+      const overlayContent = document.getElementById('overlay-content');
+      const aboutPage = document.getElementById('about-page');
+      const servicesPage = document.getElementById('services-page');
+
+      aboutPage.style.display = 'none';
+      servicesPage.style.display = 'none';
+
+      if (page === 'about') {
+        aboutPage.style.display = 'block';
+      } else if (page === 'services') {
+        servicesPage.style.display = 'block';
       }
-    
+
       container.classList.add('content-blur');
       overlay.style.opacity = '1';
       overlay.style.pointerEvents = 'auto';
-      
-      // For Contact button, the mailto link will handle the email
-      if (button.textContent.trim() === "Contact") {
-        // No additional action needed as mailto is in href
-      }
+      overlayContent.classList.add('show');
     }
 
-    // Typing Animation Variables
+    function closeOverlay() {
+      const overlay = document.querySelector('.overlay');
+      const container = document.querySelector('.container');
+      const overlayContent = document.getElementById('overlay-content');
+
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+      overlayContent.classList.remove('show');
+      container.classList.remove('content-blur');
+    }
+
     let typingSpeed = 100;
     let pauseBeforeTyping = 800;
     let selectionPause = 500;
@@ -345,9 +368,7 @@
       document.querySelectorAll("#dynamic-part, #dynamic-end").forEach((el) => {
         el.style.borderRight = "none";
       });
-      if (element) {
-        element.style.borderRight = "2px solid #545455";
-      }
+      if (element) element.style.borderRight = "2px solid #545455";
     }
 
     function selectText(element, callback) {
@@ -358,11 +379,8 @@
       function animateSelection() {
         element.innerHTML = `<span class="selected">${text.substring(0, charIndex + 1)}</span>${text.substring(charIndex + 1)}`;
         charIndex++;
-        if (charIndex < text.length) {
-          setTimeout(animateSelection, 50);
-        } else {
-          setTimeout(() => { if (callback) callback(); }, selectionPause);
-        }
+        if (charIndex < text.length) setTimeout(animateSelection, 50);
+        else setTimeout(() => { if (callback) callback(); }, selectionPause);
       }
       animateSelection();
     }
@@ -383,9 +401,7 @@
           element.textContent += text[charIndex];
           charIndex++;
           setTimeout(type, typingSpeed);
-        } else {
-          if (callback) callback();
-        }
+        } else if (callback) callback();
       }
       type();
     }
@@ -423,9 +439,7 @@
       });
 
       const lastButton = document.querySelector(".buttons a:nth-child(3)");
-      const fallbackTimer = setTimeout(() => {
-        runAnimation();
-      }, 2000);
+      const fallbackTimer = setTimeout(() => runAnimation(), 2000);
 
       lastButton.addEventListener("animationend", () => {
         clearTimeout(fallbackTimer);

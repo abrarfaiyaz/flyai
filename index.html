@@ -6,6 +6,7 @@
   <title>FLY AI Solutions</title>
   <link rel="icon" type="image/png" sizes="32x32" href="imgs/fulllogo_transparent_nobuffer.png">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <style>
     /* Basic Reset */
     * {
@@ -170,7 +171,7 @@
     .about-content h3, .services-content h3 {
         font-family: "Hind Madurai", sans-serif;
         font-size: 2rem;
-        margin-bottom: 0.5rem; /* Reduced spacing */
+        margin-bottom: 0.5rem;
         color: #ff9a9e;
     }
 
@@ -181,9 +182,9 @@
     }
 
     .digital-pulse {
-        font-family: "Tenor Sans", sans-serif;
-        font-size: 2rem;
-        font-weight: bold;
+        font-family: 'Dancing Script', cursive;
+        font-size: 2.5rem;
+        font-weight: 700;
         background: linear-gradient(90deg, #ff9a9e, #fad0c4, #ff9a9e);
         background-size: 200% 100%;
         -webkit-background-clip: text;
@@ -288,6 +289,8 @@
             height: auto;
             overflow-y: auto;
             padding: 1rem;
+            background: url('back.svg') no-repeat center center;
+            background-size: auto 100%; /* Fit height on mobile */
         }
 
         .container {
@@ -332,7 +335,7 @@
         .about-content, .services-content { padding: 1rem; }
         .about-content h3, .services-content h3 { font-size: 1.5rem; margin-bottom: 0.3rem; }
         .about-content p, .services-content p { font-size: 1rem; }
-        .digital-pulse { font-size: 1.5rem; }
+        .digital-pulse { font-size: 1.75rem; } /* Adjusted for mobile */
         .services-list li { font-size: 0.9rem; }
         .close-btn { font-size: 1.5rem; top: 10px; right: 10px; }
         .footer { font-size: 0.75rem; margin-top: 1rem; }
@@ -364,7 +367,7 @@
       <img src="fulllogo_transparent_nobuffer.png" alt="FLY AI Solutions' logo">
     </header>
     <main class="content">
-      <h3>ENTERPRISE AI</h3>
+      <h2>ENTERPRISE AI</h2>
       <p id="tagline">
         Empowering <span id="dynamic-part">Growth</span> with <br/> <span id="dynamic-end"> Intelligence</span>
       </p>

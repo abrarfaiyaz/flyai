@@ -4,22 +4,296 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FLY AI Solutions</title>
-  <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/png" sizes="32x32" href="imgs/fulllogo_transparent_nobuffer.png">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    /* Basic Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    /* Body Styling */
+    body {
+        font-family: Lato, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: url('back.svg') no-repeat center center fixed;
+        background-size: cover;
+        color: #545455;
+        text-align: center;
+        overflow: hidden;
+    }
+    
+    /* Dark Transparent Layer */
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease-in-out;
+        z-index: 2;
+    }
+
+    /* Content Displayed on Overlay */
+    .overlay-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        text-align: center;
+        font-size: 1.5rem;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+    
+    /* Main Container Styling */
+    .container {
+        animation: fadeIn 1.5s ease-in-out;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s;
+        padding-top: -20rem;
+    }
+
+    .container.content-blur {
+        transform: scale(2);
+        filter: blur(10px);
+        opacity: 0.5;
+        z-index: 0;
+    }
+
+    /* Header Styling */
+    .header img {
+        max-height: 9rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .header img:hover {
+        transform: scale(1.1);
+    }
+    
+    /* Content Styling */
+    .content h2 {
+        font-family: "Hind Madurai", sans-serif;
+        font-size: 1.125rem;
+        margin: 0.5rem 0;
+    }
+    
+    .content p {
+        font-family: "Tenor Sans", sans-serif;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 0.5rem 0;
+        line-height: 1.3;
+    }
+    
+    .social-links a:hover {
+        color: #0073e6;
+        transform: scale(1.2);
+    }
+    
+    .buttons a {
+        display: inline-block;
+        margin: 0 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: #545455;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 2rem;
+        font-weight: bold;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: buttonFlyIn 0.5s ease-out forwards;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .buttons a:hover {
+        background: #ff9a9e;
+        transform: scale(1.3);
+        box-shadow: #333;
+    }
+
+    .buttons a:nth-child(1) {
+        animation-delay: 0s;
+    }
+    
+    .buttons a:nth-child(2) {
+        animation-delay: 0.5s;
+    }
+    
+    .buttons a:nth-child(3) {
+        animation-delay: 1s;
+    }
+    
+    /* Fly-in animation */
+    @keyframes buttonFlyIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* For the About section */
+    .bubble-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        width: 80%;
+        max-width: 800px;
+        z-index: 3;
+    }
+    
+    @keyframes shine {
+        0%, 100% {
+            text-shadow: 0 0 5px #fad0c4;
+        }
+        50% {
+            text-shadow: 0 0 15px #ff9a9e;
+        }
+    }
+
+    @keyframes glow {
+        0%, 100% {
+            text-shadow: 0 0 5px #92fe9d, 0 0 15px #00c9ff, 0 0 20px #92fe9d;
+        }
+        50% {
+            text-shadow: 0 0 10px #00c9ff, 0 0 30px #92fe9d, 0 0 40px #00c9ff;
+        }
+    }
+    
+    /* Tagline Styling */
+    #tagline {
+        font-family: "Tenor Sans", sans-serif;
+        font-size: 2rem;
+        font-weight: bold;
+        line-height: 1.3;
+        margin: 1rem 0;
+    }
+
+    #dynamic-part, #dynamic-end {
+        display: inline;
+        font-weight: bold;
+        border-right: 2px solid #545455;
+        animation: blink 0.6s step-end infinite;
+    }
+
+    #dynamic-end {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 2.5rem;
+        font-weight: 200;
+    }
+    
+    /* Blink Animation for Cursor */
+    @keyframes blink {
+        50% {
+            border-color: transparent;
+        }
+    }
+    
+    /* Highlight for Selection */
+    .selected {
+        background-color: #333;
+        color: #fff;
+    }
+
+    /* Highlight for "Dynamic AI Agents" */
+    .highlight {
+        background: linear-gradient(to right, #ff9a9e, #fad0c4);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 1.5s infinite;
+    }
+
+    /* Add Responsive Styling for Mobile */
+    @media (max-width: 768px) {
+        body {
+            display: block;
+            text-align: center;
+            height: auto;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .container {
+            padding: 2rem;
+            padding-top: 5rem;
+            transform: none;
+            filter: none;
+            justify-content: center;
+            align-items: center;
+            height: 5vh;
+        }
+
+        .header img {
+            max-height: 6rem;
+            margin: 0 auto;
+        }
+
+        .content h2 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .content p {
+            font-size: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .social-links a {
+            font-size: 1.5rem;
+            margin: 0 0.25rem;
+        }
+
+        .buttons a {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            margin: 0.5rem auto;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #tagline {
+            font-size: 1.5rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        #dynamic-end {
+            font-size: 1.75rem;
+        }
+
+        .overlay {
+            position: fixed;
+        }
+    }
+  </style>
 </head>
 <body>
   <div class="overlay">
     <div class="overlay-content"></div>
-    <!-- <div class="bubble-container">
-      <div class="bubble" style="background-color: #ff6f61;">
-        <img src="imgs/abrar.jpeg" alt="Person 1">
-        <div class="info">Abrar Faiyaz<br>Founder & CEO</div>
-      </div>
-      <div class="bubble" style="background-color: #6a5acd;">
-        <div class="info">John Smith<br>CTO</div>
-      </div>
-    </div> -->
   </div>
   <div class="container">
     <header class="header">
@@ -30,22 +304,134 @@
       <p id="tagline">
         Empowering <span id="dynamic-part">Growth</span> with <br/> <span id="dynamic-end"> Intelligence</span>
       </p>
-      
-      <!-- <header class="header">
-        <img src="fulllogo_transparent_nobuffer.png" alt="FLY AI's logo">
-      </header> -->
       <div class="social-links">
         <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-square"></i></a>
         <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
         <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
       </div>
       <div class="buttons">
-        <a href="#" onclick="">About</a>
+        <a href="#" onclick="handleButtonClick(this)">About</a>
         <a href="#" onclick="">Services</a>
-        <a href="#" onclick="handleButtonClick(this)">Contact</a>
+        <a href="mailto:contact@flyai.online" onclick="handleButtonClick(this)">Contact</a>
       </div>
     </main>
   </div>
-  <script src="script.js"></script>
+  <script>
+    function handleButtonClick(button) {
+      const overlay = document.querySelector('.overlay');
+      const container = document.querySelector('.container');
+      const bubbleContainer = document.querySelector('.bubble-container');
+    
+      if (button.textContent.trim() === "About") {
+        bubbleContainer.style.display = 'flex';
+      }
+    
+      container.classList.add('content-blur');
+      overlay.style.opacity = '1';
+      overlay.style.pointerEvents = 'auto';
+      
+      // For Contact button, the mailto link will handle the email
+      if (button.textContent.trim() === "Contact") {
+        // No additional action needed as mailto is in href
+      }
+    }
+
+    // Typing Animation Variables
+    let typingSpeed = 100;
+    let pauseBeforeTyping = 800;
+    let selectionPause = 500;
+
+    function setActiveCursor(element) {
+      document.querySelectorAll("#dynamic-part, #dynamic-end").forEach((el) => {
+        el.style.borderRight = "none";
+      });
+      if (element) {
+        element.style.borderRight = "2px solid #545455";
+      }
+    }
+
+    function selectText(element, callback) {
+      if (!element) return;
+      setActiveCursor(element);
+      const text = element.textContent;
+      let charIndex = 0;
+      function animateSelection() {
+        element.innerHTML = `<span class="selected">${text.substring(0, charIndex + 1)}</span>${text.substring(charIndex + 1)}`;
+        charIndex++;
+        if (charIndex < text.length) {
+          setTimeout(animateSelection, 50);
+        } else {
+          setTimeout(() => { if (callback) callback(); }, selectionPause);
+        }
+      }
+      animateSelection();
+    }
+
+    function eraseWord(element, callback) {
+      if (!element) return;
+      setActiveCursor(element);
+      element.innerHTML = "";
+      setTimeout(() => { if (callback) callback(); }, pauseBeforeTyping);
+    }
+
+    function typeText(element, text, callback) {
+      if (!element) return;
+      setActiveCursor(element);
+      let charIndex = 0;
+      function type() {
+        if (charIndex < text.length) {
+          element.textContent += text[charIndex];
+          charIndex++;
+          setTimeout(type, typingSpeed);
+        } else {
+          if (callback) callback();
+        }
+      }
+      type();
+    }
+
+    function triggerShineAnimation(element) {
+      element.style.animation = "shine 1.5s infinite";
+      element.style.borderRight = "none";
+    }
+
+    function runAnimation() {
+      const dynamicPart = document.getElementById("dynamic-part");
+      const dynamicEnd = document.getElementById("dynamic-end");
+
+      selectText(dynamicPart, () => {
+        eraseWord(dynamicPart, () => {
+          typeText(dynamicPart, "Business", () => {
+            setTimeout(() => {
+              selectText(dynamicEnd, () => {
+                eraseWord(dynamicEnd, () => {
+                  typeText(dynamicEnd, "AI Agents", () => {
+                    dynamicEnd.classList.add("highlight");
+                    triggerShineAnimation(dynamicEnd);
+                  });
+                });
+              });
+            }, 1000);
+          });
+        });
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("#dynamic-part, #dynamic-end").forEach((el) => {
+        el.style.borderRight = "none";
+      });
+
+      const lastButton = document.querySelector(".buttons a:nth-child(3)");
+      const fallbackTimer = setTimeout(() => {
+        runAnimation();
+      }, 2000);
+
+      lastButton.addEventListener("animationend", () => {
+        clearTimeout(fallbackTimer);
+        runAnimation();
+      });
+    });
+  </script>
 </body>
 </html>

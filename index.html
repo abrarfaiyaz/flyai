@@ -93,9 +93,9 @@
     }
 
     .container.content-blur {
-        transform: scale(2);
-        filter: blur(10px);
-        opacity: 0.5;
+        transform: scale(1.1); /* Reduced scale to prevent SVG distortion */
+        filter: blur(5px); /* Adjusted blur for smoother effect */
+        opacity: 0.7; /* Slightly higher opacity for clarity */
         z-index: 0;
     }
 
@@ -178,6 +178,21 @@
         font-family: "Tenor Sans", sans-serif;
         font-size: 1.2rem;
         line-height: 1.5;
+    }
+
+    .glaring-stare {
+        display: block;
+        font-family: "Tenor Sans", sans-serif;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #ff9a9e;
+        text-shadow: 0 0 5px #ff9a9e, 0 0 15px #fad0c4;
+        animation: neonGlow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes neonGlow {
+        from { text-shadow: 0 0 5px #ff9a9e, 0 0 15px #fad0c4, 0 0 25px #ff9a9e; }
+        to { text-shadow: 0 0 10px #ff9a9e, 0 0 20px #fad0c4, 0 0 35px #ff9a9e; }
     }
 
     .services-list {
@@ -275,6 +290,12 @@
             max-width: 100%;
         }
 
+        .container.content-blur {
+            transform: scale(1.05); /* Further reduced scale for mobile */
+            filter: blur(3px); /* Lighter blur for mobile */
+            opacity: 0.7;
+        }
+
         .header img { max-height: 6rem; }
         .content h2 { font-size: 1rem; margin-bottom: 0.5rem; }
         .content p { font-size: 1.5rem; line-height: 1.2; }
@@ -303,10 +324,10 @@
         .about-content, .services-content { padding: 1rem; }
         .about-content h3, .services-content h3 { font-size: 1.5rem; }
         .about-content p, .services-content p { font-size: 1rem; }
+        .glaring-stare { font-size: 1.5rem; }
         .services-list li { font-size: 0.9rem; }
         .close-btn { font-size: 1.5rem; top: 10px; right: 10px; }
         .footer { font-size: 0.75rem; margin-top: 1rem; }
-        .container.content-blur { transform: scale(1.5); }
     }
   </style>
 </head>
@@ -315,7 +336,8 @@
     <div class="overlay-content" id="overlay-content">
       <span class="close-btn" onclick="closeOverlay()">×</span>
       <div class="about-content" id="about-page" style="display: none;">
-        <h3>About FLY AI Solutions</h3>
+        <h3>About</h3>
+        <span class="glaring-stare">FLY AI Solutions</span>
         <p>At FLY AI Solutions, our vision is to lead the global AI revolution, empowering businesses to achieve their full potential with intelligent, data-driven insights. Founded with a passion for innovation, we are committed to transforming industries by harnessing the power of artificial intelligence. Our team of experts works tirelessly to deliver cutting-edge solutions that drive growth, efficiency, and success for our clients worldwide.</p>
       </div>
       <div class="services-content" id="services-page" style="display: none;">
@@ -382,7 +404,6 @@
       const container = document.querySelector('.container');
       const overlayContent = document.getElementById('overlay-content');
 
-      // Close only if clicking outside the overlay-content
       if (event.target === overlay) {
         overlay.style.opacity = '0';
         overlay.style.pointerEvents = 'none';
@@ -391,7 +412,6 @@
       }
     }
 
-    // Separate close function for close button
     document.querySelector('.close-btn').addEventListener('click', function() {
       const overlay = document.querySelector('.overlay');
       const container = document.querySelector('.container');

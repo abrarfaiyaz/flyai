@@ -93,9 +93,9 @@
     }
 
     .container.content-blur {
-        transform: scale(1.1); /* Reduced scale to prevent SVG distortion */
-        filter: blur(5px); /* Adjusted blur for smoother effect */
-        opacity: 0.7; /* Slightly higher opacity for clarity */
+        transform: scale(1.1);
+        filter: blur(5px);
+        opacity: 0.7;
         z-index: 0;
     }
 
@@ -170,7 +170,7 @@
     .about-content h3, .services-content h3 {
         font-family: "Hind Madurai", sans-serif;
         font-size: 2rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem; /* Reduced spacing */
         color: #ff9a9e;
     }
 
@@ -180,19 +180,27 @@
         line-height: 1.5;
     }
 
-    .glaring-stare {
-        display: block;
+    .digital-pulse {
         font-family: "Tenor Sans", sans-serif;
         font-size: 2rem;
         font-weight: bold;
-        color: #ff9a9e;
-        text-shadow: 0 0 5px #ff9a9e, 0 0 15px #fad0c4;
-        animation: neonGlow 1.5s ease-in-out infinite alternate;
+        background: linear-gradient(90deg, #ff9a9e, #fad0c4, #ff9a9e);
+        background-size: 200% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: pulseGradient 3s ease infinite, subtlePulse 1.5s ease-in-out infinite;
     }
 
-    @keyframes neonGlow {
-        from { text-shadow: 0 0 5px #ff9a9e, 0 0 15px #fad0c4, 0 0 25px #ff9a9e; }
-        to { text-shadow: 0 0 10px #ff9a9e, 0 0 20px #fad0c4, 0 0 35px #ff9a9e; }
+    @keyframes pulseGradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    @keyframes subtlePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
     }
 
     .services-list {
@@ -277,7 +285,7 @@
     @media (max-width: 768px) {
         body {
             display: block;
-            min-height: 100vh;
+            height: auto;
             overflow-y: auto;
             padding: 1rem;
         }
@@ -291,8 +299,8 @@
         }
 
         .container.content-blur {
-            transform: scale(1.05); /* Further reduced scale for mobile */
-            filter: blur(3px); /* Lighter blur for mobile */
+            transform: scale(1.05);
+            filter: blur(3px);
             opacity: 0.7;
         }
 
@@ -322,9 +330,9 @@
             padding: 1rem; 
         }
         .about-content, .services-content { padding: 1rem; }
-        .about-content h3, .services-content h3 { font-size: 1.5rem; }
+        .about-content h3, .services-content h3 { font-size: 1.5rem; margin-bottom: 0.3rem; }
         .about-content p, .services-content p { font-size: 1rem; }
-        .glaring-stare { font-size: 1.5rem; }
+        .digital-pulse { font-size: 1.5rem; }
         .services-list li { font-size: 0.9rem; }
         .close-btn { font-size: 1.5rem; top: 10px; right: 10px; }
         .footer { font-size: 0.75rem; margin-top: 1rem; }
@@ -336,8 +344,7 @@
     <div class="overlay-content" id="overlay-content">
       <span class="close-btn" onclick="closeOverlay()">×</span>
       <div class="about-content" id="about-page" style="display: none;">
-        <h3>About</h3>
-        <span class="glaring-stare">FLY AI Solutions</span>
+        <h3>About <span class="digital-pulse">FLY AI Solutions</span></h3>
         <p>At FLY AI Solutions, our vision is to lead the global AI revolution, empowering businesses to achieve their full potential with intelligent, data-driven insights. Founded with a passion for innovation, we are committed to transforming industries by harnessing the power of artificial intelligence. Our team of experts works tirelessly to deliver cutting-edge solutions that drive growth, efficiency, and success for our clients worldwide.</p>
       </div>
       <div class="services-content" id="services-page" style="display: none;">
@@ -357,7 +364,7 @@
       <img src="fulllogo_transparent_nobuffer.png" alt="FLY AI Solutions' logo">
     </header>
     <main class="content">
-      <h2>ENTERPRISE AI</h2>
+      <h3>ENTERPRISE AI</h3>
       <p id="tagline">
         Empowering <span id="dynamic-part">Growth</span> with <br/> <span id="dynamic-end"> Intelligence</span>
       </p>

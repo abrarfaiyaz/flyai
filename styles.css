@@ -1,328 +1,696 @@
 /* Basic Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Body Styling */
-  body {
-    font-family: Lato, sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: url('back.svg') no-repeat center center fixed;
-    background-size: cover;
-    color: #545455;
-    text-align: center;
-    overflow: hidden;
-  }
-  /* Dark Transparent Layer */
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease-in-out;
-    z-index: 2;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/*   
-  .overlay-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-    text-align: center;
-    font-size: 1.5rem;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  
-  .container {
-    animation: fadeIn 1.5s ease-in-out;
-    position: relative;
-    z-index: 1;
-    transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s;
-    padding-top: -20rem;
-  }
+html {
+  font-size: 112%;
+}
 
-  .container.content-blur {
-    transform: scale(2);
-    filter: blur(10px);
-    opacity: 0.5;
-    z-index: 0;
-  } */
-
-/* Updated container blur */
-/* Overlay content for "Work in Progress" */
-.overlay-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
+/* Body Styling */
+body {
+  font-family: "Exo 2", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: url("back.svg") no-repeat center center fixed;
+  background-size: cover;
+  color: #545455;
   text-align: center;
-  font-size: 2rem;
-  font-family: "Lato", sans-serif;
-  text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.6);
-  opacity: 1; /* Make sure it's visible */
+  overflow-x: hidden;
 }
 
-.overlay-content .work-message {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #ffcc00;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-}
-
+/* Dark Transparent Layer */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-  z-index: 2; /* Ensure it stays above other content */
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 2;
 }
 
+/* Content Displayed on Overlay */
+.overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  overflow-y: auto;
+
+  /* Moved the glass effect here so the wrapper IS the card */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.overlay-content::-webkit-scrollbar {
+  width: 6px;
+}
+.overlay-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.overlay-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+}
+
+.overlay-content.show {
+  opacity: 1;
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translate(-50%, -60%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Main Container Styling */
+.container {
+  animation: fadeIn 1.5s ease-in-out;
+  position: relative;
+  z-index: 1;
+  transition:
+    transform 0.5s ease,
+    filter 0.5s ease,
+    opacity 0.5s;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .container.content-blur {
-  transform: scale(1.1); /* Slightly zoom in for effect */
-  filter: blur(10px); /* Blur the main container */
-  opacity: 0.5; /* Dim the main content */
+  transform: scale(1.1);
+  filter: blur(5px);
+  opacity: 0.7;
+  z-index: 0;
 }
 
+/* Header Styling */
+.header img {
+  max-height: 9rem;
+  transition: transform 0.3s ease;
+}
 
-  /* Header Styling */
-  .header img {
-    max-height: 9rem; /* Adjusted size to match original styling */
-    transition: transform 0.3s ease;
-  }
-  
-  .header img:hover {
-    transform: scale(1.1);
-  }
-  
-  /* Content Styling */
-  .content h2 {
-    font-family: "Hind Madurai", sans-serif;
-    font-size: 1.125rem;
-    margin: 0.5rem 0;
-  }
-  
-  .content p {
-    font-family: "Tenor Sans", sans-serif;
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin: 0.5rem 0;
-    line-height: 1.3;
-  }
-  
-  
-  .social-links a:hover {
-    color: #0073e6;
-    transform: scale(1.2);
-  }
-  
+.header img:hover {
+  transform: scale(1.1);
+}
 
-  .buttons a {
-    display: inline-block;
-    margin: 0 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: #545455;
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 2rem;
-    font-weight: bold;
-    opacity: 0; /* Start hidden */
-    transform: translateY(20px); /* Start slightly below */
-    animation: buttonFlyIn 0.5s ease-out forwards;
-    /* transition: transform 0.2s ease, background 0.2s ease; */
-    overflow: visible;
-    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth scaling and background transition */
+/* Content Styling */
+.content h2 {
+  font-family: "Exo 2", sans-serif;
+  font-size: 1.125rem;
+  margin: 0.5rem 0;
+}
 
-  }
-  
-  .buttons a:hover {
-     background: #ff9a9e; /*#2c5ce0;#0073e6; */
-    transform: scale(1.3);
-    box-shadow: #333;
-  }
+/* Using clamp for fluid typography */
+.content p {
+  font-family: "Exo 2", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: bold;
+  margin: 0.5rem 0;
+  line-height: 1.3;
+}
 
-  .buttons a:nth-child(1) {
-    animation-delay: 0s; /* First button */
-  }
-  
-  .buttons a:nth-child(2) {
-    animation-delay: 0.5s; /* Second button */
-  }
-  
-  .buttons a:nth-child(3) {
-    animation-delay: 1s; /* Third button */
-  }
-  
- 
-  
-  /* Fly-in animation */
-  @keyframes buttonFlyIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+.social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  margin: 1rem 0;
+}
 
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  background: #545455;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 1rem;
+  text-decoration: none;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
 
-   /* For the About section */
-  .bubble-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: none; /* Initially hidden */
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    width: 80%;
-    max-width: 800px;
-    z-index: 3;
-  }
-  
-  
-  @keyframes shine {
-    0%, 100% {
-      text-shadow: 0 0 5px #fad0c4;
-    }
-    50% {
-      text-shadow: 0 0 15px #ff9a9e;
-    }
-  }
+.social-links a:hover {
+  background: #000000;
+  transform: scale(1.15) translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
 
-  @keyframes glow {
-    0%, 100% {
-      text-shadow: 0 0 5px #92fe9d, 0 0 15px #00c9ff, 0 0 20px #92fe9d;
-    }
-    50% {
-      text-shadow: 0 0 10px #00c9ff, 0 0 30px #92fe9d, 0 0 40px #00c9ff;
-    }
-  }
-  
-  /* Social Links Styling */
-  /* .social-links a {
-    margin: 0 0.5rem;
-    font-size: 2rem;
-    color: #545455;
-    text-decoration: none;
-  }
-  
-  .social-links a:hover {
-    color: #0073e6;
-  } */
+.buttons a {
+  display: inline-block;
+  margin: 0 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #545455;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 2rem;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: buttonFlyIn 0.5s ease-out forwards;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
 
-  
+.buttons a:hover {
+  background: #000000;
+  transform: scale(1.3);
+  box-shadow: 0 0 10px rgba(51, 51, 51, 0.5);
+}
 
-/* Tagline Styling */
-#tagline {
-  font-family: "Tenor Sans", sans-serif;
+.buttons a:nth-child(1) {
+  animation-delay: 0s;
+}
+.buttons a:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.buttons a:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes buttonFlyIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* About and Services Overlay Content */
+.about-content,
+.services-content {
+  /* Extra top padding so the text doesn't overlap the X */
+  padding: 3rem 2rem 2rem;
+  background: transparent;
+  border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.about-content h3,
+.services-content h3 {
+  font-family: "Exo 2", sans-serif;
   font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #000000;
+}
+
+.about-content p,
+.services-content p {
+  font-family: "Exo 2", sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+/* Dancing Script brand name inside About */
+.digital-pulse {
+  font-family: "Exo 2", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #000000, #222222, #000000);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation:
+    pulseGradient 3s ease infinite,
+    subtlePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes subtlePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* === Services Modal (Professional) === */
+.services-content {
+  padding: 2.75rem 2.25rem 2.25rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+}
+
+.services-content h3 {
+  font-family: "Exo 2", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000000;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-align: center;
+  margin-bottom: 0.6rem;
+}
+
+.services-intro {
+  font-family: "Exo 2", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  max-width: 540px;
+  margin: 0 auto 2rem;
+  letter-spacing: 0.01em;
+}
+
+.services-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.625rem;
+  text-align: left;
+}
+
+.services-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.625rem;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.services-list li:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.4);
+  transform: translateX(3px);
+}
+
+.services-list li:hover .services-list__icon {
+  background: rgba(0, 0, 0, 0.28);
+  transform: scale(1.06);
+}
+
+.services-list__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  background: rgba(0, 0, 0, 0.14);
+  border-radius: 0.5rem;
+  color: #000000;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.services-list__name {
+  font-family: "Exo 2", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #fff;
+  letter-spacing: 0.005em;
+}
+
+.services-list li:nth-child(1) {
+  animation-delay: 0.04s;
+}
+.services-list li:nth-child(2) {
+  animation-delay: 0.08s;
+}
+.services-list li:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.services-list li:nth-child(4) {
+  animation-delay: 0.16s;
+}
+.services-list li:nth-child(5) {
+  animation-delay: 0.2s;
+}
+.services-list li:nth-child(6) {
+  animation-delay: 0.24s;
+}
+.services-list li:nth-child(7) {
+  animation-delay: 0.28s;
+}
+.services-list li:nth-child(8) {
+  animation-delay: 0.32s;
+}
+.services-list li:nth-child(9) {
+  animation-delay: 0.36s;
+}
+.services-list li:nth-child(10) {
+  animation-delay: 0.4s;
+}
+
+/* === Featured Work === */
+.featured-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin: 2rem 0 1rem;
+}
+
+.featured-divider::before,
+.featured-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.4),
+    transparent
+  );
+}
+
+.featured-divider__label {
+  font-family: "Exo 2", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.featured-works {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.featured-work {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(34, 34, 34, 0.04)
+  );
+  border: 1px solid rgba(0, 0, 0, 0.28);
+  border-radius: 0.625rem;
+  color: #fff;
+  text-decoration: none;
+  text-align: left;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.featured-works .featured-work:nth-child(1) {
+  animation-delay: 0.5s;
+}
+.featured-works .featured-work:nth-child(2) {
+  animation-delay: 0.58s;
+}
+.featured-works .featured-work:nth-child(3) {
+  animation-delay: 0.66s;
+}
+
+.featured-work:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.2),
+    rgba(34, 34, 34, 0.1)
+  );
+  border-color: #000000;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+.featured-work__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 0.5rem;
+  color: #000000;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.featured-work__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.featured-work__title {
+  font-family: "Exo 2", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.005em;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.featured-work__sub {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.02em;
+  margin-top: 0.15rem;
+  line-height: 1.2;
+}
+
+.featured-work--soon {
+  cursor: default;
+  border-style: dashed;
+  border-color: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.featured-work--soon:hover {
+  transform: none;
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.5);
+}
+
+.featured-work--soon .featured-work__sub {
+  color: #000000;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+.featured-work--soon .featured-work__icon {
+  animation: rocketBob 2.4s ease-in-out infinite;
+}
+
+@keyframes rocketBob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tagline */
+#tagline {
+  font-family: "Exo 2", sans-serif;
+  font-size: clamp(1.5rem, 5vw, 2rem);
   font-weight: bold;
   line-height: 1.3;
   margin: 1rem 0;
 }
 
-#dynamic-part,  #dynamic-end {
+#dynamic-part,
+#dynamic-end {
   display: inline;
   font-weight: bold;
-  border-right: 2px solid #545455; /* Blinking cursor effect */
+  border-right: 2px solid #545455;
   animation: blink 0.6s step-end infinite;
 }
 
 #dynamic-end {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  /* font-family: 'American Typewriter',serif; */
-  font-size: 2.5rem;
+  font-family: "Exo 2", sans-serif;
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
   font-weight: 200;
 }
-/* #dynamic-end {
-  display: inline;
-  font-weight: bold;
-  font-size:2.2rem;
-  border-left: 2px solid #545455; 
-  animation: blink 0.6s step-end infinite;
-} */
-/* Blink Animation for Cursor */
+
 @keyframes blink {
   50% {
     border-color: transparent;
   }
 }
-  /* Highlight for Selection */
+
 .selected {
-  background-color: #333; /* Close to black */
-  color: #fff; /* Inverted text color */
+  background-color: #333;
+  color: #fff;
 }
 
+.highlight {
+  background: linear-gradient(to right, #000000, #222222);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 1.5s infinite;
+}
 
-  /* Highlight for "Dynamic AI Agents" */
-  .highlight {
-    background: linear-gradient(to right, #ff9a9e, #fad0c4);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shine 1.5s infinite;
+@keyframes shine {
+  0%,
+  100% {
+    text-shadow: 0 0 5px #222222;
   }
+  50% {
+    text-shadow: 0 0 15px #000000;
+  }
+}
 
-  /* .highlight {
-    background: linear-gradient(90deg, #00c9ff, #92fe9d); */
-    /* background: linear-gradient(90deg, #111414, #414442); */
-    /* -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: glow 1.5s infinite;
-    -webkit-animation: glow 1.5s infinite;
-  } */
+/* Footer */
+.footer {
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  color: #545455;
+  font-family: "Exo 2", sans-serif;
+}
 
+/* =========================================
+   Mobile Responsiveness Upgrades
+   ========================================= */
 
-  /* Add Responsive Styling for Mobile */
 @media (max-width: 768px) {
   body {
-    display: block;
-    text-align: center;
+    /* Kept flex to allow vertical centering, but allowed wrapping/padding */
+    flex-direction: column;
+    padding: 2rem 1rem;
     height: auto;
-    overflow-y: auto;
-    padding: 1rem;
   }
 
   .container {
-    /* padding: 20rem; */
+    padding: 1.5rem 1rem;
     transform: none;
     filter: none;
-    opacity: 1;
-    padding: 2rem;
-    padding-top: 5rem;
-    transform: none;
-    filter: none;
-    /* opacity: 1; */
-    /* display: flex;  */
-    /* flex-direction: column; */
-    justify-content: center;
-    align-items: center;
-    height: 5vh; /* Center the content vertically */
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .container.content-blur {
+    /* Prevents horizontal overflow caused by scaling up on small screens */
+    transform: scale(0.98);
+    filter: blur(4px);
+    opacity: 0.7;
   }
 
   .header img {
     max-height: 6rem;
-    margin: 0 auto;
   }
 
   .content h2 {
@@ -330,42 +698,135 @@
     margin-bottom: 0.5rem;
   }
 
-  .content p {
-    font-size: 1.5rem;
-    line-height: 1.2;
+  .social-links {
+    gap: 0.75rem;
   }
-
   .social-links a {
-    font-size: 1.5rem;
-    margin: 0 0.25rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 0.95rem;
   }
 
-  .buttons a {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    margin: 0.5rem auto;
-  }
-
+  /* Button adjustments for easier tapping */
   .buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 0.75rem;
   }
 
-  #tagline {
+  .buttons a {
+    margin: 0;
+    width: 100%;
+    max-width: 260px;
+    padding: 0.875rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  /* Modal Mobile Adjustments */
+  .overlay-content {
+    width: 92%;
+    max-height: 85vh; /* Ensured it won't bleed off screen */
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .about-content,
+  .services-content {
+    padding: 1rem;
+  }
+
+  .about-content h3,
+  .services-content h3 {
     font-size: 1.5rem;
-    line-height: 1.2;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
 
-  #dynamic-end {
-    font-size: 1.75rem;
+  .about-content p,
+  .services-content p {
+    font-size: 1rem;
   }
 
-.overlay-content {
-    font-size: 1.5rem; /* Adjust font size for smaller screens */
+  .digital-pulse {
+    font-size: 1.8rem;
   }
-  .overlay-content .work-message {
-    font-size: 2rem; /* Reduce size of "Work in Progress" message */
+
+  .services-intro {
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .services-list {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .services-list li {
+    padding: 0.75rem 0.875rem;
+  }
+  .services-list__icon {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+  .services-list__name {
+    font-size: 0.875rem;
+  }
+
+  .featured-divider {
+    margin: 1.5rem 0 0.875rem;
+  }
+  .featured-divider__label {
+    font-size: 0.65rem;
+    letter-spacing: 0.24em;
+  }
+
+  .featured-works {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .featured-work {
+    padding: 0.75rem 0.875rem;
+  }
+  .featured-work__icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .close-btn {
+    font-size: 1rem;
+    top: 10px;
+    right: 15px;
+  }
+
+  .footer {
+    font-size: 0.75rem;
+    margin-top: 1.5rem;
+  }
+}
+
+/* Extra Small Phones (e.g., iPhone SE) */
+@media (max-width: 480px) {
+  .header img {
+    max-height: 4.5rem;
+  }
+
+  .buttons a {
+    max-width: 220px;
+    padding: 0.75rem 1rem;
+  }
+
+  .services-list li {
+    padding: 0.6rem 0.75rem;
+  }
+  .services-list__icon {
+    width: 1.7rem;
+    height: 1.7rem;
+    font-size: 0.8rem;
+  }
+
+  .featured-work {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
   }
 }
